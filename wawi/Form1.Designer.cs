@@ -40,17 +40,17 @@
             this.druckerTableAdapter = new wawi.Database1DataSetDruckerTableAdapters.DruckerTableAdapter();
             this.txtDrucker = new System.Windows.Forms.TextBox();
             this.dgvAuftraege = new System.Windows.Forms.DataGridView();
-            this.viewBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.database1DataSet1 = new wawi.Database1DataSet1();
-            this.btnErfassen = new System.Windows.Forms.Button();
-            this.viewTableAdapter = new wawi.Database1DataSet1TableAdapters.ViewTableAdapter();
-            this.btnStatus = new System.Windows.Forms.Button();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.erfDatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bezeichnungDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.erfUserDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.viewBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.database1DataSet1 = new wawi.Database1DataSet1();
+            this.btnErfassen = new System.Windows.Forms.Button();
+            this.viewTableAdapter = new wawi.Database1DataSet1TableAdapters.ViewTableAdapter();
+            this.btnStatus = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.artikelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.druckerBindingSource)).BeginInit();
@@ -155,40 +155,6 @@
             this.dgvAuftraege.Size = new System.Drawing.Size(887, 308);
             this.dgvAuftraege.TabIndex = 4;
             // 
-            // viewBindingSource
-            // 
-            this.viewBindingSource.DataMember = "View";
-            this.viewBindingSource.DataSource = this.database1DataSet1;
-            // 
-            // database1DataSet1
-            // 
-            this.database1DataSet1.DataSetName = "Database1DataSet1";
-            this.database1DataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // btnErfassen
-            // 
-            this.btnErfassen.Location = new System.Drawing.Point(496, 195);
-            this.btnErfassen.Name = "btnErfassen";
-            this.btnErfassen.Size = new System.Drawing.Size(127, 49);
-            this.btnErfassen.TabIndex = 5;
-            this.btnErfassen.Text = "Erfassen >>";
-            this.btnErfassen.UseVisualStyleBackColor = true;
-            this.btnErfassen.Click += new System.EventHandler(this.btnErfassen_Click);
-            // 
-            // viewTableAdapter
-            // 
-            this.viewTableAdapter.ClearBeforeFill = true;
-            // 
-            // btnStatus
-            // 
-            this.btnStatus.Location = new System.Drawing.Point(648, 11);
-            this.btnStatus.Name = "btnStatus";
-            this.btnStatus.Size = new System.Drawing.Size(170, 31);
-            this.btnStatus.TabIndex = 6;
-            this.btnStatus.Text = "nächster Status";
-            this.btnStatus.UseVisualStyleBackColor = true;
-            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
-            // 
             // idDataGridViewTextBoxColumn
             // 
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
@@ -243,6 +209,40 @@
             this.erfUserDataGridViewTextBoxColumn.Name = "erfUserDataGridViewTextBoxColumn";
             this.erfUserDataGridViewTextBoxColumn.ReadOnly = true;
             this.erfUserDataGridViewTextBoxColumn.Width = 125;
+            // 
+            // viewBindingSource
+            // 
+            this.viewBindingSource.DataMember = "View";
+            this.viewBindingSource.DataSource = this.database1DataSet1;
+            // 
+            // database1DataSet1
+            // 
+            this.database1DataSet1.DataSetName = "Database1DataSet1";
+            this.database1DataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // btnErfassen
+            // 
+            this.btnErfassen.Location = new System.Drawing.Point(496, 195);
+            this.btnErfassen.Name = "btnErfassen";
+            this.btnErfassen.Size = new System.Drawing.Size(127, 49);
+            this.btnErfassen.TabIndex = 5;
+            this.btnErfassen.Text = "Erfassen >>";
+            this.btnErfassen.UseVisualStyleBackColor = true;
+            this.btnErfassen.Click += new System.EventHandler(this.btnErfassen_Click);
+            // 
+            // viewTableAdapter
+            // 
+            this.viewTableAdapter.ClearBeforeFill = true;
+            // 
+            // btnStatus
+            // 
+            this.btnStatus.Location = new System.Drawing.Point(648, 11);
+            this.btnStatus.Name = "btnStatus";
+            this.btnStatus.Size = new System.Drawing.Size(170, 31);
+            this.btnStatus.TabIndex = 6;
+            this.btnStatus.Text = "nächster Status";
+            this.btnStatus.UseVisualStyleBackColor = true;
+            this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
             // Form1
             // 

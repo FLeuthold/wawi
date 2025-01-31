@@ -73,8 +73,8 @@ COMMIT;";
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
-            int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells["Id"].Value.ToString());
-            string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells["Status"].Value.ToString();
+            int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells[0].Value.ToString());
+            string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells[4].Value.ToString();
             string NewStatus = "";
             switch(SelectedStatus)
             {
@@ -104,7 +104,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
                 using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
                 {
                     sqlCommand.Parameters.Add("@AuftragsId", SqlDbType.Int).Value = SelectedAuftragsId;
-                    sqlCommand.Parameters.Add("@NewStatus", SqlDbType.Int).Value = lstbxArtikel.SelectedValue;
+                    sqlCommand.Parameters.Add("@NewStatus", SqlDbType.VarChar).Value = NewStatus;
                     sqlCommand.CommandType = CommandType.Text;
                     sqlConnection.Open();
                     sqlCommand.ExecuteNonQuery();
