@@ -51,6 +51,7 @@
             this.btnErfassen = new System.Windows.Forms.Button();
             this.viewTableAdapter = new wawi.Database1DataSet1TableAdapters.ViewTableAdapter();
             this.btnStatus = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.artikelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.druckerBindingSource)).BeginInit();
@@ -150,7 +151,7 @@
             this.dgvAuftraege.ReadOnly = true;
             this.dgvAuftraege.RowHeadersVisible = false;
             this.dgvAuftraege.RowHeadersWidth = 51;
-            this.dgvAuftraege.RowTemplate.Height = 24;
+            this.dgvAuftraege.RowTemplate.Height = 15;
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAuftraege.Size = new System.Drawing.Size(887, 308);
             this.dgvAuftraege.TabIndex = 4;
@@ -244,11 +245,20 @@
             this.btnStatus.UseVisualStyleBackColor = true;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(490, 309);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(91, 22);
+            this.textBox2.TabIndex = 7;
+            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1733, 462);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.btnErfassen);
             this.Controls.Add(this.dgvAuftraege);
@@ -295,6 +305,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn bezeichnungDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn erfUserDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 

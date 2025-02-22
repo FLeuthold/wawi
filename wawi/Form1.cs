@@ -6,17 +6,37 @@ using System.Data.SqlClient;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace wawi
 {
     public partial class Form1 : Form
     {
+        private NumericTextBox textBox1;
         public Form1()
         {
             InitializeComponent();
+
+            this.textBox1 = new NumericTextBox();
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(499, 46);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(136, 22);
+            this.textBox1.TabIndex = 7;
+            //this.textBox1.Leave += TextBox1_Leave;
+            this.Controls.Add(this.textBox1);
         }
+
+        private void TextBox1_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
         string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -115,5 +135,35 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
 
             this.viewTableAdapter.Fill(this.database1DataSet1.View);
         }
+
+        private void textBox2_Leave(object sender, EventArgs e)
+        {
+            textBox2.Text = "0" + textBox2.Text;
+        }
+
+        /*private void txtNumberinput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtNumberinput_Validating(object sender, CancelEventArgs e)
+        {
+            decimal value;
+            decimal.TryParse(txtNumberinput.Text, out value);
+
+
+
+            txtNumberinput.Text = value.ToString("N3");
+        }*/
     }
 }
