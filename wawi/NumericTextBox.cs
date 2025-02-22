@@ -10,7 +10,7 @@ public class NumericTextBox : TextBox
         this.TextAlign = HorizontalAlignment.Right;
         
     }
-    public bool leave;
+    
 
     protected override void OnEnter(EventArgs e)
     {
@@ -23,20 +23,15 @@ public class NumericTextBox : TextBox
                 this.Text = this.Text.Remove(0, 1);
                 
             }
-            leave = false;
         }
     }
 
     protected override void OnLeave(EventArgs e)
     {
-
         if (this.Text.StartsWith("."))
-            {
-
-            //string text = 
+        {
             this.Text = "0" + this.Text;
-            this.leave = true;
-            }
+        }
     }
 
     protected override void OnKeyPress(KeyPressEventArgs e)
@@ -67,15 +62,10 @@ public class NumericTextBox : TextBox
             
             this.Text = this.Text.Insert(cursorPosition, e.KeyChar.ToString());
 
-            
-            if(cursorPosition > dotIndex)
+            if(decimal.TryParse(this.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal value))
             {
-                if(decimal.TryParse(this.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out decimal value))
-                {
-                    this.Text = value.ToString(".000", CultureInfo.InvariantCulture);
-                }
-                
-            }
+                this.Text = value.ToString(".000", CultureInfo.InvariantCulture);
+            } 
             this.SelectionStart = Math.Min(cursorPosition + 1, this.Text.Length);
             e.Handled = true;
         }
