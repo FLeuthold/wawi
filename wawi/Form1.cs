@@ -136,10 +136,12 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             this.viewTableAdapter.Fill(this.database1DataSet1.View);
         }
 
-        private void textBox2_Leave(object sender, EventArgs e)
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            textBox2.Text = "0" + textBox2.Text;
+            var einform = new Form2();
+            einform.Visible = true;
         }
+
 
         /*private void txtNumberinput_KeyPress(object sender, KeyPressEventArgs e)
         {

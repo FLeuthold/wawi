@@ -51,7 +51,9 @@
             this.btnErfassen = new System.Windows.Forms.Button();
             this.viewTableAdapter = new wawi.Database1DataSet1TableAdapters.ViewTableAdapter();
             this.btnStatus = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.numericTextBox1 = new NumericTextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.artikelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.druckerBindingSource)).BeginInit();
@@ -59,6 +61,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftraege)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet1)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstbxArtikel
@@ -245,20 +248,38 @@
             this.btnStatus.UseVisualStyleBackColor = true;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
             // 
-            // textBox2
+            // numericTextBox1
             // 
-            this.textBox2.Location = new System.Drawing.Point(490, 309);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(91, 22);
-            this.textBox2.TabIndex = 7;
-            this.textBox2.Leave += new System.EventHandler(this.textBox2_Leave);
+            this.numericTextBox1.Location = new System.Drawing.Point(502, 303);
+            this.numericTextBox1.Name = "numericTextBox1";
+            this.numericTextBox1.Size = new System.Drawing.Size(120, 22);
+            this.numericTextBox1.TabIndex = 7;
+            this.numericTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1733, 28);
+            this.menuStrip1.TabIndex = 8;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 24);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1733, 462);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.numericTextBox1);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.btnErfassen);
             this.Controls.Add(this.dgvAuftraege);
@@ -266,6 +287,8 @@
             this.Controls.Add(this.lstbxDrucker);
             this.Controls.Add(this.txtArtikel);
             this.Controls.Add(this.lstbxArtikel);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -276,6 +299,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftraege)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet1)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,7 +330,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn bezeichnungDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn erfUserDataGridViewTextBoxColumn;
-        private System.Windows.Forms.TextBox textBox2;
+        private NumericTextBox numericTextBox1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
 }
 
