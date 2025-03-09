@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-
 public class NumericColumn : DataGridViewColumn
 {
     public NumericColumn() : base(new NumericCell())
@@ -77,6 +76,7 @@ class NumericEditingControl : TextBox, IDataGridViewEditingControl
 
     public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context)
     {
+        
         return this.Text;
     }
 
@@ -122,6 +122,7 @@ class NumericEditingControl : TextBox, IDataGridViewEditingControl
             valueChanged = value;
             this.EditingControlDataGridView?.NotifyCurrentCellDirty(value);
         }
+        
     }
 
     public Cursor EditingPanelCursor => base.Cursor;
@@ -188,6 +189,7 @@ class NumericEditingControl : TextBox, IDataGridViewEditingControl
                 this.SelectionStart = Math.Max(cursorPosition - 1, 0);
             }
             e.Handled = true;
+            EditingControlValueChanged = true;
         }
     }
     //Handle Ctrl + V

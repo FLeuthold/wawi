@@ -49,7 +49,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(621, 268);
+            this.dataGridView1.Size = new System.Drawing.Size(621, 163);
             this.dataGridView1.TabIndex = 0;
             // 
             // Column1
@@ -85,5 +85,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        
     }
 }
