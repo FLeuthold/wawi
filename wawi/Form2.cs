@@ -19,13 +19,15 @@ namespace wawi
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            NumericColumn col = new NumericColumn();
-            this.dataGridView1.Columns.Add(col);
-            this.dataGridView1.RowCount = 5;
-            foreach (DataGridViewRow row in this.dataGridView1.Rows)
+            //NumericColumn col = new NumericColumn();
+            //this.dataGridView1.Columns.Add(col);
+            //this.dataGridView1.RowCount = 10;
+            /*foreach (DataGridViewRow row in this.dataGridView1.Rows)
             {
                 row.Cells[0].Value = DateTime.Now;
-            }
+            }*/
+
+            dataGridView1.RowCount = 10;
         }
     }
 }

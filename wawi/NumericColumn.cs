@@ -28,6 +28,10 @@ public class NumericColumn : DataGridViewColumn
 
 public class NumericCell : DataGridViewTextBoxCell
 {
+    public NumericCell()
+    {
+        Value = "0.000";
+    }
 
     public override Type EditType => typeof(NumericEditingControl);
     public override Type ValueType => typeof(string);

@@ -15,21 +15,21 @@ namespace wawi
 {
     public partial class Form1 : Form
     {
-        private NumericTextBox textBox1;
+        //private NumericTextBox textBox1;
         public Form1()
         {
             InitializeComponent();
 
-            this.textBox1 = new NumericTextBox();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(499, 46);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(136, 22);
-            this.textBox1.TabIndex = 7;
-            //this.textBox1.Leave += TextBox1_Leave;
-            this.Controls.Add(this.textBox1);
+            //this.textBox1 = new NumericTextBox();
+            //// 
+            //// textBox1
+            //// 
+            //this.textBox1.Location = new System.Drawing.Point(499, 46);
+            //this.textBox1.Name = "textBox1";
+            //this.textBox1.Size = new System.Drawing.Size(136, 22);
+            //this.textBox1.TabIndex = 7;
+            ////this.textBox1.Leave += TextBox1_Leave;
+            //this.Controls.Add(this.textBox1);
         }
 
         private void TextBox1_Leave(object sender, EventArgs e)
@@ -48,6 +48,25 @@ namespace wawi
             this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
 
         }
+
+        private void DgvPunkte_Refresh()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                using (SqlCommand sqlcmd = new SqlCommand())
+                {
+                    sqlcmd.Connection = conn;
+                    sqlcmd.CommandText = "SELECT Punkte FROM dbo.Spiel;";
+                    SqlDataReader rd = sqlcmd.ExecuteReader();
+                    DataTable dt = new DataTable();
+                    dt.Load(rd);
+                    dgvAuftraege.DataSource = dt;
+                    rd.Close();
+                }
+            }
+        }
+
 
         private void txtArtikel_TextChanged(object sender, EventArgs e)
         {
@@ -81,6 +100,7 @@ COMMIT;";
                     sqlCommand.Parameters.Add("@WindowsUser", SqlDbType.VarChar).Value = Environment.UserName;
                     sqlCommand.CommandType = CommandType.Text;
                     sqlConnection.Open();
+                    
                     sqlCommand.ExecuteNonQuery();
                     sqlConnection.Close();
                 }

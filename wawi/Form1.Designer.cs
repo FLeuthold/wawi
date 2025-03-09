@@ -51,7 +51,6 @@
             this.btnErfassen = new System.Windows.Forms.Button();
             this.viewTableAdapter = new wawi.Database1DataSet1TableAdapters.ViewTableAdapter();
             this.btnStatus = new System.Windows.Forms.Button();
-            this.numericTextBox1 = new NumericTextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.artikelBindingSource)).BeginInit();
@@ -240,21 +239,13 @@
             // 
             // btnStatus
             // 
-            this.btnStatus.Location = new System.Drawing.Point(648, 11);
+            this.btnStatus.Location = new System.Drawing.Point(650, 38);
             this.btnStatus.Name = "btnStatus";
             this.btnStatus.Size = new System.Drawing.Size(170, 31);
             this.btnStatus.TabIndex = 6;
             this.btnStatus.Text = "nächster Status";
             this.btnStatus.UseVisualStyleBackColor = true;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
-            // 
-            // numericTextBox1
-            // 
-            this.numericTextBox1.Location = new System.Drawing.Point(502, 303);
-            this.numericTextBox1.Name = "numericTextBox1";
-            this.numericTextBox1.Size = new System.Drawing.Size(120, 22);
-            this.numericTextBox1.TabIndex = 7;
-            this.numericTextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // menuStrip1
             // 
@@ -279,7 +270,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1733, 462);
-            this.Controls.Add(this.numericTextBox1);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.btnErfassen);
             this.Controls.Add(this.dgvAuftraege);
@@ -330,7 +320,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn bezeichnungDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn erfUserDataGridViewTextBoxColumn;
-        private NumericTextBox numericTextBox1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
     }
