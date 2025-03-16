@@ -15,21 +15,10 @@ namespace wawi
 {
     public partial class Form1 : Form
     {
-        //private NumericTextBox textBox1;
         public Form1()
         {
             InitializeComponent();
 
-            //this.textBox1 = new NumericTextBox();
-            //// 
-            //// textBox1
-            //// 
-            //this.textBox1.Location = new System.Drawing.Point(499, 46);
-            //this.textBox1.Name = "textBox1";
-            //this.textBox1.Size = new System.Drawing.Size(136, 22);
-            //this.textBox1.TabIndex = 7;
-            ////this.textBox1.Leave += TextBox1_Leave;
-            //this.Controls.Add(this.textBox1);
         }
 
         private void TextBox1_Leave(object sender, EventArgs e)
@@ -47,24 +36,6 @@ namespace wawi
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet.Artikel". Sie können sie bei Bedarf verschieben oder entfernen.
             this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
 
-        }
-
-        private void DgvPunkte_Refresh()
-        {
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                using (SqlCommand sqlcmd = new SqlCommand())
-                {
-                    sqlcmd.Connection = conn;
-                    sqlcmd.CommandText = "SELECT Punkte FROM dbo.Spiel;";
-                    SqlDataReader rd = sqlcmd.ExecuteReader();
-                    DataTable dt = new DataTable();
-                    dt.Load(rd);
-                    dgvAuftraege.DataSource = dt;
-                    rd.Close();
-                }
-            }
         }
 
 
@@ -158,34 +129,14 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            var einform = new Form2();
-            einform.Visible = true;
-        }
-
-
-        /*private void txtNumberinput_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != '.'))
+            if ((Application.OpenForms["Form2"]) == null)
             {
-                e.Handled = true;
-            }
 
-            // only allow one decimal point
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
+                var einform = new Form2();
+                einform.Visible = true;
             }
         }
 
-        private void txtNumberinput_Validating(object sender, CancelEventArgs e)
-        {
-            decimal value;
-            decimal.TryParse(txtNumberinput.Text, out value);
 
-
-
-            txtNumberinput.Text = value.ToString("N3");
-        }*/
     }
 }

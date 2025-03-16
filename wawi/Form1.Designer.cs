@@ -53,6 +53,11 @@
             this.btnStatus = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiBestellvorschlag = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiWareneingang = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiArtikel = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDrucker = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiVerbrauch = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.artikelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.database1DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.druckerBindingSource)).BeginInit();
@@ -137,7 +142,10 @@
             // 
             this.dgvAuftraege.AllowUserToAddRows = false;
             this.dgvAuftraege.AllowUserToDeleteRows = false;
+            this.dgvAuftraege.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAuftraege.AutoGenerateColumns = false;
+            this.dgvAuftraege.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvAuftraege.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAuftraege.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn,
@@ -147,7 +155,7 @@
             this.statusDataGridViewTextBoxColumn,
             this.erfUserDataGridViewTextBoxColumn});
             this.dgvAuftraege.DataSource = this.viewBindingSource;
-            this.dgvAuftraege.Location = new System.Drawing.Point(650, 92);
+            this.dgvAuftraege.Location = new System.Drawing.Point(650, 75);
             this.dgvAuftraege.MultiSelect = false;
             this.dgvAuftraege.Name = "dgvAuftraege";
             this.dgvAuftraege.ReadOnly = true;
@@ -155,7 +163,7 @@
             this.dgvAuftraege.RowHeadersWidth = 51;
             this.dgvAuftraege.RowTemplate.Height = 15;
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAuftraege.Size = new System.Drawing.Size(887, 308);
+            this.dgvAuftraege.Size = new System.Drawing.Size(628, 325);
             this.dgvAuftraege.TabIndex = 4;
             // 
             // idDataGridViewTextBoxColumn
@@ -254,22 +262,58 @@
             this.toolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1733, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1312, 28);
             this.menuStrip1.TabIndex = 8;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // toolStripMenuItem1
             // 
+            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiBestellvorschlag,
+            this.tsmiWareneingang,
+            this.tsmiArtikel,
+            this.tsmiDrucker,
+            this.tsmiVerbrauch});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 24);
             this.toolStripMenuItem1.Text = "toolStripMenuItem1";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
+            // tsmiBestellvorschlag
+            // 
+            this.tsmiBestellvorschlag.Name = "tsmiBestellvorschlag";
+            this.tsmiBestellvorschlag.Size = new System.Drawing.Size(224, 26);
+            this.tsmiBestellvorschlag.Text = "Bestellvorschlag";
+            // 
+            // tsmiWareneingang
+            // 
+            this.tsmiWareneingang.Name = "tsmiWareneingang";
+            this.tsmiWareneingang.Size = new System.Drawing.Size(224, 26);
+            this.tsmiWareneingang.Text = "Wareneingang";
+            // 
+            // tsmiArtikel
+            // 
+            this.tsmiArtikel.Name = "tsmiArtikel";
+            this.tsmiArtikel.Size = new System.Drawing.Size(224, 26);
+            this.tsmiArtikel.Text = "Artikel";
+            // 
+            // tsmiDrucker
+            // 
+            this.tsmiDrucker.Name = "tsmiDrucker";
+            this.tsmiDrucker.Size = new System.Drawing.Size(224, 26);
+            this.tsmiDrucker.Text = "Drucker";
+            // 
+            // tsmiVerbrauch
+            // 
+            this.tsmiVerbrauch.Name = "tsmiVerbrauch";
+            this.tsmiVerbrauch.Size = new System.Drawing.Size(224, 26);
+            this.tsmiVerbrauch.Text = "Verbrauch";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1733, 462);
+            this.ClientSize = new System.Drawing.Size(1312, 462);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.btnErfassen);
             this.Controls.Add(this.dgvAuftraege);
@@ -322,6 +366,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn erfUserDataGridViewTextBoxColumn;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiBestellvorschlag;
+        private System.Windows.Forms.ToolStripMenuItem tsmiWareneingang;
+        private System.Windows.Forms.ToolStripMenuItem tsmiArtikel;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDrucker;
+        private System.Windows.Forms.ToolStripMenuItem tsmiVerbrauch;
     }
 }
 

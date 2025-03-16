@@ -51,3 +51,18 @@ INNER JOIN
 INNER JOIN Auftrag 
 ON Artikel.Id = Auftrag.ArtikelId) 
 ON Drucker.Id = Auftrag.DruckerId;
+
+GO
+CREATE VIEW [dbo].[ViewBestellvorschlag]
+	AS SELECT Artikel.Name, Artikel.Mindestbestand, Artikel.Bestellvorschlag
+FROM Artikel
+WHERE (((Artikel.Bestellvorschlag)>0));
+
+go
+
+CREATE VIEW [dbo].[ViewWareneingang]
+as	SELECT Bestellungen.ErfDat, Artikel.Name, Bestellungen.Bestellt, Bestellungen.Geliefert, Bestellungen.Offen, Bestellungen.Eingang
+FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId
+WHERE (((Bestellungen.Offen)>0));
+
+go
