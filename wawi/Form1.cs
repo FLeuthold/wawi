@@ -18,7 +18,7 @@ namespace wawi
         public Form1()
         {
             InitializeComponent();
-
+            dgvAuftraege.AutoGenerateColumns = false;
         }
 
         private void TextBox1_Leave(object sender, EventArgs e)
@@ -26,27 +26,51 @@ namespace wawi
             
         }
 
-        string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
+        static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet1.View". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.viewTableAdapter.Fill(this.database1DataSet1.View);
+            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSetDrucker.Drucker". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.druckerTableAdapter.Fill(this.database1DataSetDrucker.Drucker);
+            //this.druckerTableAdapter.Fill(this.database1DataSetDrucker.Drucker);
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet.Artikel". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
-
+            //this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
+            dgvAuftraege.DataSource = SelectData("select * from [View]");
+            lstbxArtikel.DataSource = SelectData("select * from Artikel");
+            lstbxDrucker.DataSource = SelectData("select * from Drucker");
         }
+        public static DataTable SelectData(string selectquery)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+                using (SqlCommand sqlcmd = new SqlCommand())
+                {
+                    sqlcmd.Connection = conn;
+                    sqlcmd.CommandText = selectquery;
+                    SqlDataReader rd = sqlcmd.ExecuteReader();
+                    
+                    dt.Load(rd);
+                    //dgvPunkte.DataSource = dt;
+                    rd.Close();
+                }
+            }
 
+            return dt;
+        }
 
         private void txtArtikel_TextChanged(object sender, EventArgs e)
         {
-            artikelBindingSource.Filter = string.Format("Name Like '%{0}%' ", txtArtikel.Text); //"Name like 'CF4%'";// + + "'";
+
+            //artikelBindingSource.Filter = string.Format("Name Like '%{0}%' ", txtArtikel.Text); //"Name like 'CF4%'";// + + "'";
+            lstbxArtikel.DataSource = SelectData("select * from Artikel where Name like '%" + txtArtikel.Text + "%'");
         }
 
         private void txtDrucker_TextChanged(object sender, EventArgs e)
         {
-            druckerBindingSource.Filter = string.Format("Bezeichnung Like '%{0}%' ", txtDrucker.Text);
+            //druckerBindingSource.Filter = string.Format("Bezeichnung Like '%{0}%' ", txtDrucker.Text);
+            lstbxDrucker.DataSource = SelectData("select * from Drucker where Bezeichnung like '%" + txtDrucker.Text + "%'");
         }
 
         private void btnErfassen_Click(object sender, EventArgs e)
@@ -78,14 +102,15 @@ COMMIT;";
 
             }
 
-            this.viewTableAdapter.Fill(this.database1DataSet1.View);
+            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
+            dgvAuftraege.DataSource = SelectData("select * from View");
 
         }
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
-            int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells[0].Value.ToString());
-            string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells[4].Value.ToString();
+            int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells["Id"].Value.ToString());
+            string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells["colStatus"].Value.ToString();
             string NewStatus = "";
             switch(SelectedStatus)
             {
@@ -124,7 +149,8 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
 
             }
 
-            this.viewTableAdapter.Fill(this.database1DataSet1.View);
+            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
+            dgvAuftraege.DataSource = SelectData("select * from [View]");
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -137,6 +163,9 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             }
         }
 
+        private void lstbxDrucker_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
