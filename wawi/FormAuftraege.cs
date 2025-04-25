@@ -13,17 +13,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace wawi
 {
-    public partial class Form1 : Form
+    public partial class FormAuftraege : Form
     {
-        public Form1()
+        public FormAuftraege()
         {
             InitializeComponent();
             dgvAuftraege.AutoGenerateColumns = false;
-        }
-
-        private void TextBox1_Leave(object sender, EventArgs e)
-        {
-            
         }
 
         static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
@@ -103,7 +98,7 @@ COMMIT;";
             }
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            dgvAuftraege.DataSource = SelectData("select * from View");
+            dgvAuftraege.DataSource = SelectData("select * from [View]");
 
         }
 
@@ -153,7 +148,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             dgvAuftraege.DataSource = SelectData("select * from [View]");
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        /*private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if ((Application.OpenForms["Form2"]) == null)
             {
@@ -161,11 +156,6 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
                 var einform = new Form2();
                 einform.Visible = true;
             }
-        }
-
-        private void lstbxDrucker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        }*/
     }
 }

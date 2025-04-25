@@ -22,7 +22,7 @@ namespace wawi
         {
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSetBestellvorschlag.ViewBestellvorschlag". Sie können sie bei Bedarf verschieben oder entfernen.
             //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
-           dataGridView1.DataSource = Form1.SelectData("select * from [ViewBestellvorschlag]");
+           dataGridView1.DataSource = FormAuftraege.SelectData("select * from [ViewBestellvorschlag]");
         }
 
         private void btnBestellvorschlag_Click(object sender, EventArgs e)
@@ -48,7 +48,7 @@ COMMIT;
             }
 
             //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
-            dataGridView1.DataSource = Form1.SelectData("select * from [ViewBestellvorschlag]");
+            dataGridView1.DataSource = FormAuftraege.SelectData("select * from [ViewBestellvorschlag]");
         }
     }
 }
