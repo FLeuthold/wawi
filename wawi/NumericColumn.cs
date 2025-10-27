@@ -186,74 +186,76 @@ namespace WindowsFormsApp2
         }
 
         // Handle the whole "delete with backspace" thing
-        protected override void OnKeyDown(KeyEventArgs e)
+             protected override void OnKeyDown(KeyEventArgs e)
         {
-            
-            
-            if ((e.KeyCode == Keys.Back)|| e.KeyCode == Keys.Delete)
+            if (e.KeyCode != Keys.Back && e.KeyCode != Keys.Delete)
             {
-
-                int cursorPosition = this.SelectionStart;
-                int dotIndex = this.Text.IndexOf('.');
-
-                //this.Text.Length
-
-                if (this.SelectionStart + this.SelectionLength > dotIndex)
-                {
-                    int sellength = this.SelectionLength;
-                    int cursPos = this.SelectionStart;
-                    if (sellength == 0)
-                    {
-                        sellength = 1;
-                        cursPos--;
-                    }
-
-                    this.Text = this.Text.Remove(cursPos, sellength);
-                    if (!this.Text.Contains("."))
-                    {
-                        this.Text = this.Text.Insert(cursPos, ".");
-                    }
-                    int i = 3 - (this.Text.Length - this.Text.IndexOf('.') - 1);//anzahl gelöschte nachkommastellen
-
-                    for (int j = 0; j < i; j++)
-                    {
-                        this.Text = this.Text + "0";
-                    }
-                    this.SelectionStart = Math.Max(cursPos, 0);
-
-                }
-                else if (cursorPosition == dotIndex + 1)
-                {
-                    this.SelectionStart = Math.Max(cursorPosition - 1, 0);
-                }
-                else
-                {
-                    if(this.SelectionLength > 0)
-                    {
-                        this.Text = this.Text.Remove(cursorPosition, this.SelectionLength);
-                        //cursorPosition = this.SelectionStart;
-                        cursorPosition++;
-                    }
-                    else
-                    {
-                        //if(this.SelectionStart >0)
-                            this.Text = this.Text.Remove(cursorPosition - 1, 1);
-                        
-                    }
-                        //
-                        
-                    if (cursorPosition > dotIndex + 1)
-                    {
-                        this.Text = this.Text + "0";
-                    }
-                    this.SelectionStart = Math.Max(cursorPosition - 1, 0);
-                }
-                e.Handled = true;
-                EditingControlValueChanged = true;
+                base.OnKeyDown(e);
+                return;
             }
+
+            string text = this.Text;
+            int cursor = this.SelectionStart;
+            int length = this.SelectionLength;
+            int dotIndex = text.IndexOf('.');
+
+            if (dotIndex < 0)
+            {
+                // Ensure there's always a decimal point
+                text += ".000";
+                dotIndex = text.IndexOf('.');
+            }
+
+            // CASE 1: Deleting after the dot (decimal part)
+            if (cursor + length > dotIndex)
+            {
+                int start = cursor;
+                int removeLen = length > 0 ? length : 1;
+                if (length == 0) start = Math.Max(cursor - 1, 0);
+
+                text = text.Remove(start, Math.Min(removeLen, text.Length - start));
+
+                // Ensure dot exists and pad zeros to keep 3 decimal places
+                if (!text.Contains("."))
+                    text = text.Insert(start, ".");
+
+                int decimalsMissing = 3 - (text.Length - text.IndexOf('.') - 1);
+                if (decimalsMissing > 0)
+                    text = text.PadRight(text.Length + decimalsMissing, '0');
+
+                this.Text = text;
+                this.SelectionStart = Math.Max(start, 0);
+            }
+            // CASE 2: Deleting immediately after dot (prevent removing dot)
+            else if (cursor == dotIndex + 1)
+            {
+                this.SelectionStart = Math.Max(cursor - 1, 0);
+            }
+            // CASE 3: Deleting before the dot (integer part)
+            else
+            {
+                if (length > 0)
+                {
+                    text = text.Remove(cursor, Math.Min(length, text.Length - cursor));
+                }
+                else if (cursor > 0)
+                {
+                    text = text.Remove(cursor - 1, 1);
+                    cursor--;
+                }
+
+                // Ensure 3 decimals after the dot
+                int decimalsMissing = 3 - (text.Length - text.IndexOf('.') - 1);
+                if (decimalsMissing > 0)
+                    text = text.PadRight(text.Length + decimalsMissing, '0');
+
+                this.Text = text;
+                this.SelectionStart = Math.Max(cursor, 0);
+            }
+
+            e.Handled = true;
+            EditingControlValueChanged = true;
         }
-
-
         protected override void WndProc(ref Message m)
         {
             const int WM_PASTE = 0x0302;
