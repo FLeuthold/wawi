@@ -14,33 +14,10 @@ namespace WindowsFormsApp2
         public NumericColumn() : base(new NumericCell())
         {
         }
-
-        public override DataGridViewCell CellTemplate
-        {
-            get
-            {
-                return base.CellTemplate;
-            }
-            set
-            {
-                // Ensure that the cell used for the template is a NumericCell.
-                if (value != null &&
-                    !value.GetType().IsAssignableFrom(typeof(NumericCell)))
-                {
-                    throw new InvalidCastException("Must be a NumericCell");
-                }
-                base.CellTemplate = value;
-            }
-        }
     }
 
     public class NumericCell : DataGridViewTextBoxCell
     {
-        public NumericCell()
-        {
-            Value = "0.000";
-        }
-
         public override Type EditType => typeof(NumericEditingControl);
         public override Type ValueType => typeof(string);
         public override object DefaultNewRowValue => "0.000";
@@ -52,7 +29,6 @@ namespace WindowsFormsApp2
         private bool valueChanged;
         private int rowIndex;
         private bool isEntry;
-
         protected override void OnEnter(EventArgs e)
         {
 
@@ -74,6 +50,7 @@ namespace WindowsFormsApp2
             {
                 this.Text = "0" + this.Text;
             }
+            base.OnLeave(e);
         }
 
 
@@ -85,9 +62,23 @@ namespace WindowsFormsApp2
         public object EditingControlFormattedValue
         {
             get { return this.Text; }
-            set { this.Text = value?.ToString() ?? "0.000"; }
+            set { this.Text = value?.ToString();
+            }
         }
 
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                if (this.Text.StartsWith("."))
+                {
+                    this.Text = "0" + this.Text;
+                }
+
+            }
+
+            return base.ProcessDialogKey(keyData);
+        }
         public object GetEditingControlFormattedValue(DataGridViewDataErrorContexts context)
         {
 
@@ -167,7 +158,7 @@ namespace WindowsFormsApp2
             }
             if (char.IsDigit(e.KeyChar))
             {
-                if(isEntry)
+                if (isEntry)
                 {
                     isEntry = false;
                     this.Text = ".000";
@@ -186,7 +177,7 @@ namespace WindowsFormsApp2
         }
 
         // Handle the whole "delete with backspace" thing
-             protected override void OnKeyDown(KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Back && e.KeyCode != Keys.Delete)
             {
