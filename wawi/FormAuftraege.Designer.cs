@@ -33,6 +33,12 @@
             this.lstbxDrucker = new System.Windows.Forms.ListBox();
             this.txtDrucker = new System.Windows.Forms.TextBox();
             this.dgvAuftraege = new System.Windows.Forms.DataGridView();
+            this.ErfDat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDrucker = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colErfUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnErfassen = new System.Windows.Forms.Button();
             this.btnStatus = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,17 +47,13 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ErfDat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDrucker = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colErfUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftraege)).BeginInit();
             this.SuspendLayout();
             // 
             // lstbxArtikel
             // 
+            this.lstbxArtikel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lstbxArtikel.DisplayMember = "Name";
             this.lstbxArtikel.FormattingEnabled = true;
             this.lstbxArtikel.ItemHeight = 16;
@@ -71,6 +73,8 @@
             // 
             // lstbxDrucker
             // 
+            this.lstbxDrucker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.lstbxDrucker.DisplayMember = "Bezeichnung";
             this.lstbxDrucker.FormattingEnabled = true;
             this.lstbxDrucker.ItemHeight = 16;
@@ -92,7 +96,8 @@
             // 
             this.dgvAuftraege.AllowUserToAddRows = false;
             this.dgvAuftraege.AllowUserToDeleteRows = false;
-            this.dgvAuftraege.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvAuftraege.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvAuftraege.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvAuftraege.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -113,6 +118,61 @@
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAuftraege.Size = new System.Drawing.Size(628, 325);
             this.dgvAuftraege.TabIndex = 4;
+            // 
+            // ErfDat
+            // 
+            this.ErfDat.DataPropertyName = "ErfDat";
+            this.ErfDat.HeaderText = "ErfDat";
+            this.ErfDat.MinimumWidth = 6;
+            this.ErfDat.Name = "ErfDat";
+            this.ErfDat.ReadOnly = true;
+            this.ErfDat.Width = 125;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            this.Id.Width = 125;
+            // 
+            // colName
+            // 
+            this.colName.DataPropertyName = "Name";
+            this.colName.HeaderText = "Artikel";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            this.colName.Width = 125;
+            // 
+            // colDrucker
+            // 
+            this.colDrucker.DataPropertyName = "Bezeichnung";
+            this.colDrucker.HeaderText = "Drucker";
+            this.colDrucker.MinimumWidth = 6;
+            this.colDrucker.Name = "colDrucker";
+            this.colDrucker.ReadOnly = true;
+            this.colDrucker.Width = 125;
+            // 
+            // colStatus
+            // 
+            this.colStatus.DataPropertyName = "Status";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.MinimumWidth = 6;
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Width = 125;
+            // 
+            // colErfUser
+            // 
+            this.colErfUser.DataPropertyName = "ErfUser";
+            this.colErfUser.HeaderText = "ErfUser";
+            this.colErfUser.MinimumWidth = 6;
+            this.colErfUser.Name = "colErfUser";
+            this.colErfUser.ReadOnly = true;
+            this.colErfUser.Width = 125;
             // 
             // btnErfassen
             // 
@@ -183,61 +243,6 @@
             this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.Width = 125;
-            // 
-            // ErfDat
-            // 
-            this.ErfDat.DataPropertyName = "ErfDat";
-            this.ErfDat.HeaderText = "ErfDat";
-            this.ErfDat.MinimumWidth = 6;
-            this.ErfDat.Name = "ErfDat";
-            this.ErfDat.ReadOnly = true;
-            this.ErfDat.Width = 125;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            this.Id.Width = 125;
-            // 
-            // colName
-            // 
-            this.colName.DataPropertyName = "Name";
-            this.colName.HeaderText = "Artikel";
-            this.colName.MinimumWidth = 6;
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            this.colName.Width = 125;
-            // 
-            // colDrucker
-            // 
-            this.colDrucker.DataPropertyName = "Bezeichnung";
-            this.colDrucker.HeaderText = "Drucker";
-            this.colDrucker.MinimumWidth = 6;
-            this.colDrucker.Name = "colDrucker";
-            this.colDrucker.ReadOnly = true;
-            this.colDrucker.Width = 125;
-            // 
-            // colStatus
-            // 
-            this.colStatus.DataPropertyName = "Status";
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.MinimumWidth = 6;
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.Width = 125;
-            // 
-            // colErfUser
-            // 
-            this.colErfUser.DataPropertyName = "ErfUser";
-            this.colErfUser.HeaderText = "ErfUser";
-            this.colErfUser.MinimumWidth = 6;
-            this.colErfUser.Name = "colErfUser";
-            this.colErfUser.ReadOnly = true;
-            this.colErfUser.Width = 125;
             // 
             // FormAuftraege
             // 

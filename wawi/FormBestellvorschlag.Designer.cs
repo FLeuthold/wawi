@@ -35,7 +35,8 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(18, 90);
@@ -55,14 +56,14 @@
             this.btnBestellvorschlag.UseVisualStyleBackColor = true;
             this.btnBestellvorschlag.Click += new System.EventHandler(this.btnBestellvorschlag_Click);
             // 
-            // frmBestellvorschlag
+            // FormBestellvorschlag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 450);
             this.Controls.Add(this.btnBestellvorschlag);
             this.Controls.Add(this.dataGridView1);
-            this.Name = "frmBestellvorschlag";
+            this.Name = "FormBestellvorschlag";
             this.Text = "Bestellvorschlag";
             this.Load += new System.EventHandler(this.frmBestellvorschlag_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
