@@ -22,7 +22,7 @@ CREATE TABLE [dbo].[Bestellungen]
     [ArtikelId] INT NULL, 
     [bestellt] INT NULL, 
     [geliefert] INT NULL, 
-    [offen] INT NULL, 
+    [offen] as bestellt - geliefert, 
     [Eingang] INT NULL, 
     [ErfUser] VARCHAR(50) NULL, 
     [ErfDat] DATE NULL, 
@@ -66,3 +66,12 @@ FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId
 WHERE (((Bestellungen.Offen)>0));
 
 go
+
+CREATE VIEW [dbo].[ViewVerbrauch]
+AS
+SELECT SUM(dbo.Artikel.Preis) AS Kosten, dbo.Artikel.Name AS Artikel, dbo.Drucker.Bezeichnung AS Drucker
+FROM     dbo.Auftrag INNER JOIN
+                  dbo.Drucker ON dbo.Auftrag.DruckerId = dbo.Drucker.Id INNER JOIN
+                  dbo.Artikel ON dbo.Auftrag.ArtikelId = dbo.Artikel.Id
+GROUP BY dbo.Artikel.Name, dbo.Drucker.Bezeichnung
+GO
