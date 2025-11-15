@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="verbrauchDS" targetNamespace="http://tempuri.org/verbrauchDS.xsd" xmlns:mstns="http://tempuri.org/verbrauchDS.xsd" xmlns="http://tempuri.org/verbrauchDS.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Database1ConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="Database1ConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.wawi.Properties.Settings.GlobalReference.Default.Database1ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="ViewVerbrauchTableAdapter" GeneratorDataComponentClassName="ViewVerbrauchTableAdapter" Name="ViewVerbrauch" UserDataComponentName="ViewVerbrauchTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Database1ConnectionString (Settings)" DbObjectName="wawi.dbo.ViewVerbrauch" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Kosten, Artikel, Drucker FROM dbo.ViewVerbrauch</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Kosten" DataSetColumn="Kosten" />
+              <Mapping SourceColumn="Artikel" DataSetColumn="Artikel" />
+              <Mapping SourceColumn="Drucker" DataSetColumn="Drucker" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="verbrauchDS" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="verbrauchDS" msprop:Generator_DataSetName="verbrauchDS">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ViewVerbrauch" msprop:Generator_RowEvHandlerName="ViewVerbrauchRowChangeEventHandler" msprop:Generator_RowDeletedName="ViewVerbrauchRowDeleted" msprop:Generator_RowDeletingName="ViewVerbrauchRowDeleting" msprop:Generator_RowEvArgName="ViewVerbrauchRowChangeEvent" msprop:Generator_TablePropName="ViewVerbrauch" msprop:Generator_RowChangedName="ViewVerbrauchRowChanged" msprop:Generator_RowChangingName="ViewVerbrauchRowChanging" msprop:Generator_TableClassName="ViewVerbrauchDataTable" msprop:Generator_RowClassName="ViewVerbrauchRow" msprop:Generator_TableVarName="tableViewVerbrauch" msprop:Generator_UserTableName="ViewVerbrauch">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Kosten" msprop:Generator_ColumnPropNameInRow="Kosten" msprop:Generator_ColumnPropNameInTable="KostenColumn" msprop:Generator_ColumnVarNameInTable="columnKosten" msprop:Generator_UserColumnName="Kosten" type="xs:decimal" minOccurs="0" />
+              <xs:element name="Artikel" msprop:Generator_ColumnPropNameInRow="Artikel" msprop:Generator_ColumnPropNameInTable="ArtikelColumn" msprop:Generator_ColumnVarNameInTable="columnArtikel" msprop:Generator_UserColumnName="Artikel" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Drucker" msprop:Generator_ColumnPropNameInRow="Drucker" msprop:Generator_ColumnPropNameInTable="DruckerColumn" msprop:Generator_ColumnVarNameInTable="columnDrucker" msprop:Generator_UserColumnName="Drucker" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

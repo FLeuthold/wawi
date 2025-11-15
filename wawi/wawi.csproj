@@ -105,6 +105,11 @@
     <Compile Include="FormVerbrauch.Designer.cs">
       <DependentUpon>FormVerbrauch.cs</DependentUpon>
     </Compile>
+    <Compile Include="verbrauchDS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>verbrauchDS.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormBestellvorschlag.resx">
       <DependentUpon>FormBestellvorschlag.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormVerbrauch.resx">
+      <DependentUpon>FormVerbrauch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormWareneingang.resx">
       <DependentUpon>FormWareneingang.cs</DependentUpon>
@@ -129,6 +137,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Verbrauch.rdlc" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -138,6 +147,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="verbrauchDS.xsc">
+      <DependentUpon>verbrauchDS.xsd</DependentUpon>
+    </None>
+    <None Include="verbrauchDS.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>verbrauchDS.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="verbrauchDS.xss">
+      <DependentUpon>verbrauchDS.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -164,6 +184,11 @@
     <None Include="README.md">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms">
+      <Version>150.1652.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

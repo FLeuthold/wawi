@@ -16,5 +16,14 @@ namespace wawi
         {
             InitializeComponent();
         }
+
+        private void FormVerbrauch_Load(object sender, EventArgs e)
+        {
+            // TODO: Diese Codezeile lädt Daten in die Tabelle "verbrauchDS.ViewVerbrauch". Sie können sie bei Bedarf verschieben oder entfernen.
+            this.viewVerbrauchTableAdapter.Fill(this.verbrauchDS.ViewVerbrauch);
+            //reportViewer1.DataBindings.Add()
+
+            this.reportViewer1.RefreshReport();
+        }
     }
 }

@@ -62,6 +62,18 @@ namespace wawi
             bestellvorschlagTab.Controls.Add(formBestellvorschlag);
             tabControl.TabPages.Add(bestellvorschlagTab);
             formBestellvorschlag.Show();
+
+
+            FormVerbrauch formVerbrauch = new FormVerbrauch
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            TabPage verbrauchTab = new TabPage("Verbrauch");
+            verbrauchTab.Controls.Add(formVerbrauch);
+            tabControl.TabPages.Add(verbrauchTab);
+            formVerbrauch.Show();
         }
     }
 }
