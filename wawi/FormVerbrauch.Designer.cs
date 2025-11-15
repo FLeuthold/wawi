@@ -1,6 +1,6 @@
 ﻿namespace wawi
 {
-    partial class FormMain
+    partial class FormVerbrauch
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // FormMain
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1282, 450);
-            this.Name = "FormMain";
-            this.Text = "FormMain";
-            this.Load += new System.EventHandler(this.FormMain_Load);
-            this.ResumeLayout(false);
-
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "Verbrauch";
         }
 
         #endregion

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Globalization;
 using System.Windows.Forms;
-namespace WindowsFormsApp2
+namespace wawi
 {
 
     public class NumericColumn : DataGridViewColumn

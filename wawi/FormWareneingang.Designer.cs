@@ -41,6 +41,7 @@
             this.btnEinbuchen.TabIndex = 0;
             this.btnEinbuchen.Text = "Einbuchen";
             this.btnEinbuchen.UseVisualStyleBackColor = true;
+            this.btnEinbuchen.Click += new System.EventHandler(this.btnEinbuchen_Click);
             // 
             // dataGridView1
             // 
@@ -61,6 +62,7 @@
             this.Controls.Add(this.btnEinbuchen);
             this.Name = "FormWareneingang";
             this.Text = "FormWareneingang";
+            this.Load += new System.EventHandler(this.FormWareneingang_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 

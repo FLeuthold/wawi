@@ -1,6 +1,6 @@
 ﻿namespace wawi
 {
-    partial class frmBestellvorschlag
+    partial class FormBestellvorschlag
     {
         /// <summary>
         /// Required designer variable.

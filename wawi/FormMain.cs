@@ -49,6 +49,19 @@ namespace wawi
             wareneingangTab.Controls.Add(formWareneingang);
             tabControl.TabPages.Add(wareneingangTab);
             formWareneingang.Show();
+            // Add FormWareneingang as a Tab
+
+
+            FormBestellvorschlag formBestellvorschlag = new FormBestellvorschlag
+            {
+                TopLevel = false,
+                FormBorderStyle = FormBorderStyle.None,
+                Dock = DockStyle.Fill
+            };
+            TabPage bestellvorschlagTab = new TabPage("Bestellvorschlag");
+            bestellvorschlagTab.Controls.Add(formBestellvorschlag);
+            tabControl.TabPages.Add(bestellvorschlagTab);
+            formBestellvorschlag.Show();
         }
     }
 }

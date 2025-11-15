@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace wawi
 {
-    public partial class frmBestellvorschlag: Form
+    public partial class FormBestellvorschlag: Form
     {
-        public frmBestellvorschlag()
+        public FormBestellvorschlag()
         {
             InitializeComponent();
         }
@@ -29,7 +29,7 @@ namespace wawi
         {
             string queryString = @"
 BEGIN TRANSACTION;
-insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat) SELECT Id, Bestellvorschlag, @Username, Date() FROM Artikel where Bestellvorschlag > 0;
+insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat) SELECT Id, Bestellvorschlag, @Username, GETDATE() FROM Artikel where Bestellvorschlag > 0;
 
 update Artikel set Bestellt = Bestellt + Bestellvorschlag;
 COMMIT;
@@ -38,7 +38,7 @@ COMMIT;
             {
                 using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
                 {
-                    sqlCommand.Parameters.Add("@Username", SqlDbType.Int).Value = Environment.UserName;
+                    sqlCommand.Parameters.Add("@Username", SqlDbType.Text).Value = Environment.UserName;
                     sqlCommand.CommandType = CommandType.Text;
                     sqlConnection.Open();
                     sqlCommand.ExecuteNonQuery();
