@@ -29,7 +29,7 @@ namespace wawi
         {
             string queryString = @"
 BEGIN TRANSACTION;
-insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat, geliefert) SELECT Id, Bestellvorschlag, @Username, GETDATE(), 0 FROM Artikel where Bestellvorschlag > 0;
+insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat, geliefert, Eingang) SELECT Id, Bestellvorschlag, @Username, GETDATE(), 0, 0  FROM Artikel where Bestellvorschlag > 0;
 
 update Artikel set Bestellt = Bestellt + Bestellvorschlag;
 COMMIT;
