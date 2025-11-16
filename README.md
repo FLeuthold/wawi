@@ -5,3 +5,9 @@
 
 
 SELECT Bestellungen.ErfDat, Artikel.Bezeichnung, Bestellungen.Bestellt, Bestellungen.Geliefert, Bestellungen.Offen, Bestellungen.Eingang FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId WHERE (((Bestellungen.Offen)>0)); 
+
+
+2 -> Blue
+3 -> Black -> Gedruckt
+4 -> DarkRed -> Verrechnet
+5 -> Green

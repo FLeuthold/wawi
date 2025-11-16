@@ -13,6 +13,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace wawi
 {
+    enum StatusAuftrag
+    {
+        Reserviert,
+        Bereit,
+        Ausgeliefert,
+        Ausgewechselt
+    }
     public partial class FormAuftraege : Form
     {
         public FormAuftraege()
@@ -104,11 +111,15 @@ COMMIT;";
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
+            //int scrollOffset = dgvAuftraege.HorizontalScrollingOffset;
+            int firstDisplayedRowIndex = dgvAuftraege.FirstDisplayedScrollingRowIndex;
             int currentRowIndex = dgvAuftraege.CurrentCell.RowIndex;
             int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells["Id"].Value.ToString());
             string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells["colStatus"].Value.ToString();
             string NewStatus = "";
-            switch(SelectedStatus)
+            //StatusAuftrag status;
+            //status = status + 1;
+            switch (SelectedStatus)
             {
                 case "Reserviert": NewStatus = "Bereit";
                     break;
@@ -148,6 +159,8 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
             dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
             dgvAuftraege.CurrentCell = dgvAuftraege.Rows[currentRowIndex].Cells[0];
+            //dgvAuftraege.HorizontalScrollingOffset = scrollOffset;
+            dgvAuftraege.FirstDisplayedScrollingRowIndex = firstDisplayedRowIndex;
         }
 
         private void dgvAuftraege_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
