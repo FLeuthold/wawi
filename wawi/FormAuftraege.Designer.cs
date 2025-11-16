@@ -119,6 +119,7 @@
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAuftraege.Size = new System.Drawing.Size(628, 325);
             this.dgvAuftraege.TabIndex = 4;
+            this.dgvAuftraege.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvAuftraege_RowPrePaint);
             // 
             // ErfDat
             // 

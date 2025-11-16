@@ -150,6 +150,33 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             dgvAuftraege.CurrentCell = dgvAuftraege.Rows[currentRowIndex].Cells[0];
         }
 
+        private void dgvAuftraege_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var row = dgvAuftraege.Rows[e.RowIndex];
+            var cellValue = row.Cells["colStatus"].Value;
+            Color color;
+
+            switch (cellValue)
+            {
+                case "Reserviert":
+                    color = Color.Blue;
+                    break;
+                case "Bereit":
+                    color = Color.Green;
+                    break;
+                case "Ausgeliefert":
+                    color = Color.DarkRed;
+                    break;
+                default:
+                    color = Color.Black;
+                    break;
+            }
+            
+            row.DefaultCellStyle.ForeColor = color;
+            
+        }
+    }
+
         /*private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if ((Application.OpenForms["Form2"]) == null)
@@ -160,4 +187,4 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             }
         }*/
     }
-}
+

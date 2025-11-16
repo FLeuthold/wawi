@@ -185,11 +185,6 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms">
       <Version>150.1652.0</Version>
     </PackageReference>
