@@ -37,6 +37,7 @@
             this.ClientSize = new System.Drawing.Size(1282, 450);
             this.Name = "FormMain";
             this.Text = "FormMain";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.ResumeLayout(false);
 
