@@ -104,6 +104,7 @@ COMMIT;";
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
+            int currentRowIndex = dgvAuftraege.CurrentCell.RowIndex;
             int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells["Id"].Value.ToString());
             string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells["colStatus"].Value.ToString();
             string NewStatus = "";
@@ -146,6 +147,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
             dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
+            dgvAuftraege.CurrentCell = dgvAuftraege.Rows[currentRowIndex].Cells[0];
         }
 
         /*private void toolStripMenuItem1_Click(object sender, EventArgs e)
