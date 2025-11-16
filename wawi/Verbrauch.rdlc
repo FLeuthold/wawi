@@ -121,7 +121,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!Kosten.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00'CHF';-#,0.00'CHF'</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -139,6 +141,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -176,7 +179,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -189,7 +191,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Sum(Fields!Kosten.Value)</Value>
-                              <Style />
+                              <Style>
+                                <Format>#,0.00'CHF';#,0.00-'CHF'</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -205,6 +209,7 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
+                        <rd:FormatSymbolCulture>de-CH</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                   </CellContents>
