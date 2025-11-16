@@ -96,6 +96,7 @@
             // 
             this.dgvAuftraege.AllowUserToAddRows = false;
             this.dgvAuftraege.AllowUserToDeleteRows = false;
+            this.dgvAuftraege.AllowUserToResizeRows = false;
             this.dgvAuftraege.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -114,7 +115,7 @@
             this.dgvAuftraege.ReadOnly = true;
             this.dgvAuftraege.RowHeadersVisible = false;
             this.dgvAuftraege.RowHeadersWidth = 51;
-            this.dgvAuftraege.RowTemplate.Height = 15;
+            this.dgvAuftraege.RowTemplate.Height = 24;
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvAuftraege.Size = new System.Drawing.Size(628, 325);
             this.dgvAuftraege.TabIndex = 4;

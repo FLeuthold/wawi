@@ -30,6 +30,7 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnBestellvorschlag = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,11 +57,22 @@
             this.btnBestellvorschlag.UseVisualStyleBackColor = true;
             this.btnBestellvorschlag.Click += new System.EventHandler(this.btnBestellvorschlag_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(267, 23);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(126, 50);
+            this.btnRefresh.TabIndex = 2;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // FormBestellvorschlag
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(958, 450);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnBestellvorschlag);
             this.Controls.Add(this.dataGridView1);
             this.Name = "FormBestellvorschlag";
@@ -79,5 +91,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn mindestbestandDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn bestellvorschlagDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnBestellvorschlag;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }

@@ -50,5 +50,10 @@ COMMIT;
             //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
             dataGridView1.DataSource = FormAuftraege.SelectData("select * from [ViewBestellvorschlag]");
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            frmBestellvorschlag_Load(sender, e);
+        }
     }
 }

@@ -92,5 +92,10 @@ COMMIT;";*/
 
 
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            FormWareneingang_Load(sender, e);
+        }
     }
 }
