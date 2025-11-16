@@ -30,7 +30,7 @@ namespace wawi
             //this.druckerTableAdapter.Fill(this.database1DataSetDrucker.Drucker);
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet.Artikel". Sie können sie bei Bedarf verschieben oder entfernen.
             //this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
-            dgvAuftraege.DataSource = SelectData("select * from [View]");
+            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
             lstbxArtikel.DataSource = SelectData("select * from Artikel");
             lstbxDrucker.DataSource = SelectData("select * from Drucker");
         }
@@ -98,7 +98,7 @@ COMMIT;";
             }
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            dgvAuftraege.DataSource = SelectData("select * from [View]");
+            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
 
         }
 
@@ -145,7 +145,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             }
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            dgvAuftraege.DataSource = SelectData("select * from [View]");
+            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
         }
 
         /*private void toolStripMenuItem1_Click(object sender, EventArgs e)
