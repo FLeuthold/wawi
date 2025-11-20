@@ -188,6 +188,31 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             row.DefaultCellStyle.ForeColor = color;
             
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //DataTable dt = (DataTable)dgvAuftraege.DataSource;
+            //dt.TableName = "Auftraege";
+            //dt.WriteXml("auftraege_export44.xml", XmlWriteMode.IgnoreSchema);
+            DataSet ds = new DataSet();
+            ds.ReadXmlSchema("auftraege2.xsd");//Tables[0] ist schon initialisiert
+            ds.ReadXml("auftraege_export44.xml");
+            //dataGridView1.DataSource = ds.Tables[0].Copy();
+            ds.ReadXml("auftraege_export66.xml");
+            
+            dataGridView2.DataSource = ds.Tables[0];
+            //auftraege_export332.xml
+
+            DataSet ds2 = new DataSet();
+            ds2.ReadXmlSchema("auftraege2.xsd");
+            ds2.ReadXml("auftraege_export332.xml");
+            DataTable dt3= ds2.Tables[0];
+            dt3.Merge(ds.Tables[0]);
+            dataGridView1.DataSource = dt3;
+            //NewDataSet nds = new NewDataSet();
+            //nds.ReadXml("auftraege_export44.xml");
+            //dataGridView1.DataSource = nds.Tables[0];
+        }
     }
 
         /*private void toolStripMenuItem1_Click(object sender, EventArgs e)
