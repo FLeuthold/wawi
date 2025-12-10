@@ -28,7 +28,7 @@ namespace wawi
             dgvAuftraege.AutoGenerateColumns = false;
         }
 
-        static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet1.View". Sie können sie bei Bedarf verschieben oder entfernen.
@@ -37,42 +37,23 @@ namespace wawi
             //this.druckerTableAdapter.Fill(this.database1DataSetDrucker.Drucker);
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSet.Artikel". Sie können sie bei Bedarf verschieben oder entfernen.
             //this.artikelTableAdapter.Fill(this.database1DataSet.Artikel);
-            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
-            lstbxArtikel.DataSource = SelectData("select * from Artikel");
-            lstbxDrucker.DataSource = SelectData("select * from Drucker");
+            dgvAuftraege.DataSource = DBHelper.SelectData("select * from [View] order by Id desc");
+            lstbxArtikel.DataSource = DBHelper.SelectData("select * from Artikel");
+            lstbxDrucker.DataSource = DBHelper.SelectData("select * from Drucker");
         }
-        public static DataTable SelectData(string selectquery)
-        {
-            DataTable dt = new DataTable();
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                using (SqlCommand sqlcmd = new SqlCommand())
-                {
-                    sqlcmd.Connection = conn;
-                    sqlcmd.CommandText = selectquery;
-                    SqlDataReader rd = sqlcmd.ExecuteReader();
-                    
-                    dt.Load(rd);
-                    //dgvPunkte.DataSource = dt;
-                    rd.Close();
-                }
-            }
-
-            return dt;
-        }
+ 
 
         private void txtArtikel_TextChanged(object sender, EventArgs e)
         {
 
             //artikelBindingSource.Filter = string.Format("Name Like '%{0}%' ", txtArtikel.Text); //"Name like 'CF4%'";// + + "'";
-            lstbxArtikel.DataSource = SelectData("select * from Artikel where Name like '%" + txtArtikel.Text + "%'");
+            lstbxArtikel.DataSource = DBHelper.SelectData("select * from Artikel where Name like '%" + txtArtikel.Text + "%'");
         }
 
         private void txtDrucker_TextChanged(object sender, EventArgs e)
         {
             //druckerBindingSource.Filter = string.Format("Bezeichnung Like '%{0}%' ", txtDrucker.Text);
-            lstbxDrucker.DataSource = SelectData("select * from Drucker where Bezeichnung like '%" + txtDrucker.Text + "%'");
+            lstbxDrucker.DataSource = DBHelper.SelectData("select * from Drucker where Bezeichnung like '%" + txtDrucker.Text + "%'");
         }
 
         private void btnErfassen_Click(object sender, EventArgs e)
@@ -89,7 +70,7 @@ update Artikel set Reserviert = Reserviert + 1 where Id = @SelectedArtikelId;
 COMMIT;";
 
             //" + lstbxDrucker.SelectedValue + ", " + lstbxArtikel.SelectedValue + "Environment.UserName
-            using (SqlConnection sqlConnection = new SqlConnection(connStr)) { 
+            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr)) { 
                 using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
                 {
                     sqlCommand.Parameters.Add("@SelectedDruckerId", SqlDbType.Int).Value = lstbxDrucker.SelectedValue;
@@ -105,7 +86,7 @@ COMMIT;";
             }
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
+            dgvAuftraege.DataSource = DBHelper.SelectData("select * from [View] order by Id desc");
 
         }
 
@@ -142,7 +123,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
 ";
 
             //" + lstbxDrucker.SelectedValue + ", " + lstbxArtikel.SelectedValue + "Environment.UserName
-            using (SqlConnection sqlConnection = new SqlConnection(connStr))
+            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr))
             {
                 using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
                 {
@@ -157,7 +138,7 @@ Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
             }
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            dgvAuftraege.DataSource = SelectData("select * from [View] order by Id desc");
+            dgvAuftraege.DataSource = DBHelper.SelectData("select * from [View] order by Id desc");
             dgvAuftraege.CurrentCell = dgvAuftraege.Rows[currentRowIndex].Cells[0];
             //dgvAuftraege.HorizontalScrollingOffset = scrollOffset;
             dgvAuftraege.FirstDisplayedScrollingRowIndex = firstDisplayedRowIndex;

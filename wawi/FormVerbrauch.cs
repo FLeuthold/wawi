@@ -19,19 +19,25 @@ namespace wawi
 
         private void FormVerbrauch_Load(object sender, EventArgs e)
         {
-            // TODO: Diese Codezeile lädt Daten in die Tabelle "verbrauchDS.ViewVerbrauch". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.viewVerbrauchTableAdapter.Fill(this.verbrauchDS.ViewVerbrauch);
-            //reportViewer1.DataBindings.Add()
-
-            this.reportViewer1.RefreshReport();
+            LadeNeu();
         }
 
         private void reportViewer1_ReportRefresh(object sender, CancelEventArgs e)
         {
-            // TODO: Diese Codezeile lädt Daten in die Tabelle "verbrauchDS.ViewVerbrauch". Sie können sie bei Bedarf verschieben oder entfernen.
-            this.viewVerbrauchTableAdapter.Fill(this.verbrauchDS.ViewVerbrauch);
-            //reportViewer1.DataBindings.Add()
+            LadeNeu();
+            
+        }
+        private void LadeNeu()
+        {
+            DataTable dt = new DataTable();
+            // ... hier deine Daten reinladen, z.B. mit SqlDataAdapter.Fill(dt)
+            dt = DBHelper.SelectData("SELECT * FROM ViewVerbrauch");
+            // ReportDataSource erzeugen
+            var rds = new Microsoft.Reporting.WinForms.ReportDataSource("VerbrauchDataSet", dt);
 
+            // Alte Datenquellen löschen und neue setzen
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Add(rds);
             this.reportViewer1.RefreshReport();
         }
     }

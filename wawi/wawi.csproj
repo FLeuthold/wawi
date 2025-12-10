@@ -51,6 +51,26 @@
   <PropertyGroup>
     <ApplicationIcon>Favicon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'GstarCAD|AnyCPU'">
+    <OutputPath>bin\GstarCAD\</OutputPath>
+    <DefineConstants>TRACE;GSTAR_COMPAT</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AutoCAD|AnyCPU'">
+    <OutputPath>bin\AutoCAD\</OutputPath>
+    <DefineConstants>TRACE;ACAD_COMPAT</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -67,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBHelper.cs" />
     <Compile Include="FormBestellvorschlag.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +118,7 @@
     <Compile Include="FormWareneingang.Designer.cs">
       <DependentUpon>FormWareneingang.cs</DependentUpon>
     </Compile>
+    <Compile Include="Globals.cs" />
     <Compile Include="NumericColumn.cs" />
     <Compile Include="NumericTextBox.cs">
       <SubType>Component</SubType>
@@ -108,11 +130,6 @@
     </Compile>
     <Compile Include="FormVerbrauch.Designer.cs">
       <DependentUpon>FormVerbrauch.cs</DependentUpon>
-    </Compile>
-    <Compile Include="verbrauchDS.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>verbrauchDS.xsd</DependentUpon>
     </Compile>
     <EmbeddedResource Include="FormBestellvorschlag.resx">
       <DependentUpon>FormBestellvorschlag.cs</DependentUpon>
@@ -160,17 +177,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="verbrauchDS.xsc">
-      <DependentUpon>verbrauchDS.xsd</DependentUpon>
-    </None>
-    <None Include="verbrauchDS.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>verbrauchDS.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="verbrauchDS.xss">
-      <DependentUpon>verbrauchDS.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

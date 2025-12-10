@@ -1,3 +1,9 @@
 <Solution>
+  <Configurations>
+    <BuildType Name="AutoCAD" />
+    <BuildType Name="Debug" />
+    <BuildType Name="GstarCAD" />
+    <BuildType Name="Release" />
+  </Configurations>
   <Project Path="wawi/wawi.csproj" Id="55f18cbb-f436-4595-89c7-4b74d4154c6b" />
 </Solution>

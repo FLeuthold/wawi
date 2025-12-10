@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace wawi
 {
     public partial class FormWareneingang: Form
-    {
+    {        
         public FormWareneingang()
         {
             InitializeComponent();
@@ -20,13 +20,12 @@ namespace wawi
 
         private void FormWareneingang_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = FormAuftraege.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
+            dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
             dataGridView1.Columns["Id"].Visible = false;
         }
 
         private void btnEinbuchen_Click(object sender, EventArgs e)
-        {
-            string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
+        {            
             /*string queryString = @"
 BEGIN TRANSACTION;
 
@@ -50,7 +49,7 @@ COMMIT;";*/
 
             }*/
 
-            using (var conn = new SqlConnection(connStr))
+            using (var conn = new SqlConnection(Globals.ConnStr))
             {
                 conn.Open();
 
@@ -88,7 +87,7 @@ COMMIT;";*/
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
             //FormAuftraege.SelectData("SELECT Bestellungen.ErfDat, Artikel.Name, Bestellungen.Bestellt, Bestellungen.Geliefert, Bestellungen.Offen, Bestellungen.Eingang FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId WHERE (((Bestellungen.Offen)>0)); ");
-            dataGridView1.DataSource = FormAuftraege.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
+            dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
 
 
         }

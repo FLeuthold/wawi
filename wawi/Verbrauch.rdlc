@@ -316,7 +316,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSet1</DataSetName>
+        <DataSetName>VerbrauchDataSet</DataSetName>
         <Height>1.8cm</Height>
         <Width>16.50999cm</Width>
         <Style>
@@ -351,7 +351,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
+    <DataSet Name="VerbrauchDataSet">
       <Query>
         <DataSourceName>verbrauchDS</DataSourceName>
         <CommandText>/* Local Query */</CommandText>

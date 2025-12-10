@@ -17,12 +17,12 @@ namespace wawi
         {
             InitializeComponent();
         }
-        string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["wawi.Properties.Settings.Database1ConnectionString"].ConnectionString;
+       
         private void frmBestellvorschlag_Load(object sender, EventArgs e)
         {
             // TODO: Diese Codezeile lädt Daten in die Tabelle "database1DataSetBestellvorschlag.ViewBestellvorschlag". Sie können sie bei Bedarf verschieben oder entfernen.
             //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
-           dataGridView1.DataSource = FormAuftraege.SelectData("select * from [ViewBestellvorschlag]");
+           dataGridView1.DataSource = DBHelper.SelectData("select * from [ViewBestellvorschlag]");
         }
 
         private void btnBestellvorschlag_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat, geliefert, Einga
 update Artikel set Bestellt = Bestellt + Bestellvorschlag;
 COMMIT;
 ";
-            using (SqlConnection sqlConnection = new SqlConnection(connStr))
+            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr))
             {
                 using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
                 {
@@ -48,7 +48,7 @@ COMMIT;
             }
 
             //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
-            dataGridView1.DataSource = FormAuftraege.SelectData("select * from [ViewBestellvorschlag]");
+            dataGridView1.DataSource = DBHelper.SelectData("select * from [ViewBestellvorschlag]");
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

@@ -1,0 +1,91 @@
+	Crystal Reports Professional Version 14.0 (32 Bit) - Berichtdefinition
+
+1.0 Dateiinformationen
+
+	Berichtdatei: 
+	Version: 14.0
+
+2.0 Datensatz-Sortierfelder
+
+3.0 Gruppen-Sortierfelder
+
+4.0 Formeln
+
+4.1 Datensatzauswahlformel
+	
+
+4.2 Gruppenauswahlformel
+	
+
+4.3 Sonstige Formeln
+
+5.0 Sektionsinformationen
+
+5.1 Seitenkopf
+	Ausgeblendet
+
+5.2 Seitenfuß
+	Ausgeblendet, Danach neue Seite, Zusammenhalten, Am Ende der Seite drucken
+
+5.3 Berichtskopf
+	Sichtbar, Davor neue Seite
+
+	Kosten
+		Zeichenfolge, Sichtbar, Ausrichtung links, Ausrichtung oben, 
+		Zusammenhalten
+
+
+
+	Artikel
+		Zeichenfolge, Sichtbar, Ausrichtung links, Ausrichtung oben, 
+		Zusammenhalten
+
+
+
+	Drucker
+		Zeichenfolge, Sichtbar, Ausrichtung links, Ausrichtung oben, 
+		Zusammenhalten
+
+
+
+5.4 Berichtsfuß
+	Ausgeblendet, Danach neue Seite
+
+5.5 Gruppenkopf
+	Sichtbar
+
+	GroupName ({ViewVerbrauch.Drucker})
+		Zeichenfolge, Sichtbar, Standardausrichtung, Ausrichtung oben, 
+		Zusammenhalten, Verwendet Systemstandardformatierung, Zeilenumbruch
+
+
+5.6 Gruppenfuß
+	Sichtbar
+
+	Sum ({ViewVerbrauch.Kosten}, {ViewVerbrauch.Drucker})
+		Währung, Sichtbar, Standardausrichtung, Ausrichtung oben, 
+		Zusammenhalten, 
+		Führendes Minus, 2 Dezimalstellen, Runden: 0,01, 
+		Tausendersymbol: '’', Dezimalsymbol: '.', 
+		Symbol verschiebbar: 'CHF ', Führende Währung innerhalb negativer Werte
+
+
+5.7 Detailsektion
+	Sichtbar
+
+	Untersektion.1 
+		Sichtbar, Zusammenhalten
+
+	{ViewVerbrauch.Kosten}
+		Währung, Sichtbar, Standardausrichtung, Ausrichtung oben, 
+		Zusammenhalten, 
+		Führendes Minus, 2 Dezimalstellen, Runden: 0,01, 
+		Tausendersymbol: '’', Dezimalsymbol: '.', 
+		Symbol verschiebbar: 'CHF ', Führende Währung innerhalb negativer Werte
+
+
+	{ViewVerbrauch.Artikel}
+		Zeichenfolge, Sichtbar, Standardausrichtung, Ausrichtung oben, 
+		Zusammenhalten, Verwendet Systemstandardformatierung, Zeilenumbruch
+
+
