@@ -33,26 +33,21 @@
             this.lstbxDrucker = new System.Windows.Forms.ListBox();
             this.txtDrucker = new System.Windows.Forms.TextBox();
             this.dgvAuftraege = new System.Windows.Forms.DataGridView();
-            this.btnErfassen = new System.Windows.Forms.Button();
-            this.btnStatus = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ErfDat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDrucker = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colErfUser = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnErfassen = new System.Windows.Forms.Button();
+            this.btnStatus = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftraege)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // lstbxArtikel
@@ -62,15 +57,15 @@
             this.lstbxArtikel.DisplayMember = "Name";
             this.lstbxArtikel.FormattingEnabled = true;
             this.lstbxArtikel.ItemHeight = 16;
-            this.lstbxArtikel.Location = new System.Drawing.Point(39, 92);
+            this.lstbxArtikel.Location = new System.Drawing.Point(2, 84);
             this.lstbxArtikel.Name = "lstbxArtikel";
-            this.lstbxArtikel.Size = new System.Drawing.Size(195, 420);
+            this.lstbxArtikel.Size = new System.Drawing.Size(195, 484);
             this.lstbxArtikel.TabIndex = 0;
             this.lstbxArtikel.ValueMember = "Id";
             // 
             // txtArtikel
             // 
-            this.txtArtikel.Location = new System.Drawing.Point(37, 42);
+            this.txtArtikel.Location = new System.Drawing.Point(2, 42);
             this.txtArtikel.Name = "txtArtikel";
             this.txtArtikel.Size = new System.Drawing.Size(197, 22);
             this.txtArtikel.TabIndex = 1;
@@ -83,15 +78,15 @@
             this.lstbxDrucker.DisplayMember = "Bezeichnung";
             this.lstbxDrucker.FormattingEnabled = true;
             this.lstbxDrucker.ItemHeight = 16;
-            this.lstbxDrucker.Location = new System.Drawing.Point(267, 92);
+            this.lstbxDrucker.Location = new System.Drawing.Point(203, 84);
             this.lstbxDrucker.Name = "lstbxDrucker";
-            this.lstbxDrucker.Size = new System.Drawing.Size(194, 420);
+            this.lstbxDrucker.Size = new System.Drawing.Size(194, 484);
             this.lstbxDrucker.TabIndex = 2;
             this.lstbxDrucker.ValueMember = "Id";
             // 
             // txtDrucker
             // 
-            this.txtDrucker.Location = new System.Drawing.Point(267, 42);
+            this.txtDrucker.Location = new System.Drawing.Point(205, 42);
             this.txtDrucker.Name = "txtDrucker";
             this.txtDrucker.Size = new System.Drawing.Size(194, 22);
             this.txtDrucker.TabIndex = 3;
@@ -105,6 +100,7 @@
             this.dgvAuftraege.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvAuftraege.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvAuftraege.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvAuftraege.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAuftraege.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -122,13 +118,62 @@
             this.dgvAuftraege.RowHeadersWidth = 51;
             this.dgvAuftraege.RowTemplate.Height = 24;
             this.dgvAuftraege.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvAuftraege.Size = new System.Drawing.Size(628, 136);
+            this.dgvAuftraege.Size = new System.Drawing.Size(658, 493);
             this.dgvAuftraege.TabIndex = 4;
             this.dgvAuftraege.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvAuftraege_RowPrePaint);
             // 
+            // ErfDat
+            // 
+            this.ErfDat.DataPropertyName = "ErfDat";
+            this.ErfDat.HeaderText = "ErfDat";
+            this.ErfDat.MinimumWidth = 6;
+            this.ErfDat.Name = "ErfDat";
+            this.ErfDat.ReadOnly = true;
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "Id";
+            this.Id.MinimumWidth = 6;
+            this.Id.Name = "Id";
+            this.Id.ReadOnly = true;
+            this.Id.Visible = false;
+            // 
+            // colName
+            // 
+            this.colName.DataPropertyName = "Name";
+            this.colName.HeaderText = "Artikel";
+            this.colName.MinimumWidth = 6;
+            this.colName.Name = "colName";
+            this.colName.ReadOnly = true;
+            // 
+            // colDrucker
+            // 
+            this.colDrucker.DataPropertyName = "Bezeichnung";
+            this.colDrucker.HeaderText = "Drucker";
+            this.colDrucker.MinimumWidth = 6;
+            this.colDrucker.Name = "colDrucker";
+            this.colDrucker.ReadOnly = true;
+            // 
+            // colStatus
+            // 
+            this.colStatus.DataPropertyName = "Status";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.MinimumWidth = 6;
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
+            // colErfUser
+            // 
+            this.colErfUser.DataPropertyName = "ErfUser";
+            this.colErfUser.HeaderText = "ErfUser";
+            this.colErfUser.MinimumWidth = 6;
+            this.colErfUser.Name = "colErfUser";
+            this.colErfUser.ReadOnly = true;
+            // 
             // btnErfassen
             // 
-            this.btnErfassen.Location = new System.Drawing.Point(496, 195);
+            this.btnErfassen.Location = new System.Drawing.Point(455, 241);
             this.btnErfassen.Name = "btnErfassen";
             this.btnErfassen.Size = new System.Drawing.Size(127, 49);
             this.btnErfassen.TabIndex = 5;
@@ -145,38 +190,6 @@
             this.btnStatus.Text = "nächster Status";
             this.btnStatus.UseVisualStyleBackColor = true;
             this.btnStatus.Click += new System.EventHandler(this.btnStatus_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(526, 341);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(968, 217);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 51;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(310, 327);
-            this.dataGridView2.TabIndex = 8;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(650, 217);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(310, 327);
-            this.dataGridView1.TabIndex = 9;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -228,69 +241,11 @@
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.Width = 125;
             // 
-            // ErfDat
-            // 
-            this.ErfDat.DataPropertyName = "ErfDat";
-            this.ErfDat.HeaderText = "ErfDat";
-            this.ErfDat.MinimumWidth = 6;
-            this.ErfDat.Name = "ErfDat";
-            this.ErfDat.ReadOnly = true;
-            this.ErfDat.Width = 125;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "Id";
-            this.Id.MinimumWidth = 6;
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Visible = false;
-            this.Id.Width = 125;
-            // 
-            // colName
-            // 
-            this.colName.DataPropertyName = "Name";
-            this.colName.HeaderText = "Artikel";
-            this.colName.MinimumWidth = 6;
-            this.colName.Name = "colName";
-            this.colName.ReadOnly = true;
-            this.colName.Width = 125;
-            // 
-            // colDrucker
-            // 
-            this.colDrucker.DataPropertyName = "Bezeichnung";
-            this.colDrucker.HeaderText = "Drucker";
-            this.colDrucker.MinimumWidth = 6;
-            this.colDrucker.Name = "colDrucker";
-            this.colDrucker.ReadOnly = true;
-            this.colDrucker.Width = 125;
-            // 
-            // colStatus
-            // 
-            this.colStatus.DataPropertyName = "Status";
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.MinimumWidth = 6;
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.Width = 125;
-            // 
-            // colErfUser
-            // 
-            this.colErfUser.DataPropertyName = "ErfUser";
-            this.colErfUser.HeaderText = "ErfUser";
-            this.colErfUser.MinimumWidth = 6;
-            this.colErfUser.Name = "colErfUser";
-            this.colErfUser.ReadOnly = true;
-            this.colErfUser.Width = 125;
-            // 
             // FormAuftraege
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1312, 580);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.dataGridView2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnStatus);
             this.Controls.Add(this.btnErfassen);
             this.Controls.Add(this.dgvAuftraege);
@@ -302,8 +257,6 @@
             this.Text = "Aufträge";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftraege)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,9 +283,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

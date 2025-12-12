@@ -5,5 +5,9 @@
     <BuildType Name="GstarCAD" />
     <BuildType Name="Release" />
   </Configurations>
+  <Project Path="SchemaGenerator/SchemaGenerator.csproj" Id="3b551d55-65c1-4802-ac9e-f5c93101815d">
+    <BuildType Solution="AutoCAD|*" Project="Release" />
+    <BuildType Solution="GstarCAD|*" Project="Release" />
+  </Project>
   <Project Path="wawi/wawi.csproj" Id="55f18cbb-f436-4595-89c7-4b74d4154c6b" />
 </Solution>
