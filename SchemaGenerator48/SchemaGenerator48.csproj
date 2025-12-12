@@ -50,6 +50,7 @@
     <None Include="App.config" />
     <None Include="config\conn.conf" />
     <None Include="config\mm.rel" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config\Artikel.txt" />

@@ -21,37 +21,138 @@ namespace SchemaGenerator48
             }
 
 
-            string connStr = File.ReadAllLines(folderPath + "conn.conf")[0];
-            DbHelper.EnsureDatabase(connStr);
-            foreach (var file in Directory.GetFiles(folderPath, "*.txt"))
+            var connStr = File.ReadAllLines(folderPath + "conn.conf")[0];
+            var builder = new SqlConnectionStringBuilder(connStr);
+            string dbName = builder.InitialCatalog;
+
+            // Verbindung zur master-DB
+            builder.InitialCatalog = "master";
+
+            using (var conn = new SqlConnection(builder.ConnectionString))
             {
-                // Tabellen aus Dateien einlesen
-                var tableDef = SchemaGenerator.Parse(file);
-                string sqlTable = SchemaGenerator.GenerateCreateTable(tableDef);
-                DbHelper.ExecuteNonQuery(connStr, sqlTable);
-                Console.WriteLine($"Tabelle {tableDef.Name} erstellt/überprüft.");
+                conn.Open();
+                using (var cmd = new SqlCommand($@"
+IF DB_ID('{dbName}') IS NULL
+    CREATE DATABASE [{dbName}];", conn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
-
-
-
-            string[] relLines = File.ReadAllLines(folderPath + "mm.rel");
-            var sqlStatements = SchemaGenerator.ParseRelations(relLines);
-
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
-                foreach (var sql in sqlStatements)
+                using (var cmd = new SqlCommand())
                 {
-                    //DbHelper.ExecuteNonQuery(connStr, sql);
-                    using (var cmd = new SqlCommand(sql, conn))
+
+
+                    cmd.Connection = conn;
+
+                    //DbHelper.EnsureDatabase(cmd);
+                    foreach (var file in Directory.GetFiles(folderPath, "*.txt"))
                     {
+                        // Tabellen aus Dateien einlesen
+                        var tableDef = SchemaGenerator.Parse(file);
+                        string sqlTable = SchemaGenerator.GenerateCreateTable(tableDef);
+                        cmd.CommandText = sqlTable;
+                        cmd.ExecuteNonQuery();
+                        Console.WriteLine($"Tabelle {tableDef.Name} erstellt/überprüft.");
+                    }
+
+
+
+                    string[] relLines = File.ReadAllLines(folderPath + "mm.rel");
+                    var sqlStatements = SchemaGenerator.ParseRelations(relLines);
+
+
+                    foreach (var sql in sqlStatements)
+                    {
+                        cmd.CommandText = sql;
                         cmd.ExecuteNonQuery();
                     }
+                    Console.WriteLine("Schema erfolgreich erstellt!");
+                    
+
+                    //DbHelper.EnsureDatabase(connStr, conn);
+
+                    // Migrations-Tabelle sicherstellen
+                    string ensureTable = @"
+IF OBJECT_ID('dbo.Migrations', 'U') IS NULL
+CREATE TABLE dbo.Migrations (
+    Id INT IDENTITY PRIMARY KEY,
+    Name NVARCHAR(200) NOT NULL,
+    AppliedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+);";
+                    cmd.CommandText = ensureTable;
+                    cmd.ExecuteNonQuery();
+
+
+                    // Alle Migrationsordner holen und numerisch sortieren
+                    var migrationDirs = Directory.GetDirectories(folderPath + "migrations/", "migration*")
+                                             .OrderBy(d => d, new MigrationComparer())
+                                             .ToList();
+
+                    foreach (var dir in migrationDirs)
+                    {
+                        string migrationName = Path.GetFileName(dir);
+
+                        // Prüfen ob schon angewandt
+                        cmd.CommandText = "SELECT COUNT(*) FROM dbo.Migrations WHERE Name = @Name";
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@Name", migrationName);
+                        int count = (int)cmd.ExecuteScalar();
+                        if (count > 0)
+                        {
+                            Console.WriteLine($"{migrationName} already applied.");
+                            continue;
+                        }
+
+                        Console.WriteLine($"Applying {migrationName}...");
+
+                        // ALTER-Dateien
+                        string alterDir = Path.Combine(dir, "alter");
+
+                        if (Directory.Exists(alterDir))
+                        {
+                            foreach (var file in Directory.GetFiles(alterDir, "*.txt"))
+                            {
+                                string tableName = Path.GetFileNameWithoutExtension(file);
+                                foreach (var sql in SchemaGenerator.ParseAlterFile(tableName, file))
+                                {
+                                    cmd.CommandText = sql;
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // ADD-Dateien
+                        string addDir = Path.Combine(dir, "add");
+                        if (Directory.Exists(addDir))
+                        {
+                            cmd.Connection = conn;
+                            foreach (var file in Directory.GetFiles(addDir, "*.txt"))
+                            {
+                                string tableName = Path.GetFileNameWithoutExtension(file);
+                                foreach (var sql in SchemaGenerator.ParseAddFile(tableName, file))
+                                {
+                                    cmd.CommandText = sql;
+                                    cmd.ExecuteNonQuery();
+                                }
+                            }
+                        }
+
+                        // Migration protokollieren
+                        string insertSql = "INSERT INTO dbo.Migrations (Name) VALUES (@Name)";
+                        cmd.CommandText = insertSql;
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.AddWithValue("@Name", migrationName);
+                        cmd.ExecuteNonQuery();
+                    }
+                    //MigrationRunner.Run(connStr, folderPath + "migrations/");
                 }
             }
 
-            Console.WriteLine("Schema erfolgreich erstellt!");
-            MigrationRunner.Run(connStr, folderPath + "migrations/");
+
+
             Console.ReadLine();
 
         }
@@ -182,99 +283,6 @@ IF COL_LENGTH('{tables[0]}', '{tables[1]}Id') IS NULL
 
     }
 
-
-    class MigrationRunner
-    {
-
-        public static void Run(string connStr, string migrationsRoot)
-        {
-            // DB sicherstellen
-            DbHelper.EnsureDatabase(connStr);
-
-            using (var conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-                using (var cmd = new SqlCommand())
-                {
-                    cmd.Connection = conn;
-                    // Migrations-Tabelle sicherstellen
-                    string ensureTable = @"
-IF OBJECT_ID('dbo.Migrations', 'U') IS NULL
-CREATE TABLE dbo.Migrations (
-    Id INT IDENTITY PRIMARY KEY,
-    Name NVARCHAR(200) NOT NULL,
-    AppliedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
-);";
-                    cmd.CommandText = ensureTable;
-                    cmd.ExecuteNonQuery();
-
-
-                    // Alle Migrationsordner holen und numerisch sortieren
-                    var migrationDirs = Directory.GetDirectories(migrationsRoot, "migration*")
-                                             .OrderBy(d => d, new MigrationComparer())
-                                             .ToList();
-
-                    foreach (var dir in migrationDirs)
-                    {
-                        string migrationName = Path.GetFileName(dir);
-
-                        // Prüfen ob schon angewandt
-                        cmd.CommandText = "SELECT COUNT(*) FROM dbo.Migrations WHERE Name = @Name";
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@Name", migrationName);
-                        int count = (int)cmd.ExecuteScalar();
-                        if (count > 0)
-                        {
-                            Console.WriteLine($"{migrationName} already applied.");
-                            continue;
-                        }
-
-                        Console.WriteLine($"Applying {migrationName}...");
-
-                        // ALTER-Dateien
-                        string alterDir = Path.Combine(dir, "alter");
-
-                        if (Directory.Exists(alterDir))
-                        {
-                            foreach (var file in Directory.GetFiles(alterDir, "*.txt"))
-                            {
-                                string tableName = Path.GetFileNameWithoutExtension(file);
-                                foreach (var sql in SchemaGenerator.ParseAlterFile(tableName, file))
-                                {
-                                    cmd.CommandText = sql;
-                                    cmd.ExecuteNonQuery();
-                                }
-                            }
-                        }
-
-                        // ADD-Dateien
-                        string addDir = Path.Combine(dir, "add");
-                        if (Directory.Exists(addDir))
-                        {
-                            cmd.Connection = conn;
-                            foreach (var file in Directory.GetFiles(addDir, "*.txt"))
-                            {
-                                string tableName = Path.GetFileNameWithoutExtension(file);
-                                foreach (var sql in SchemaGenerator.ParseAddFile(tableName, file))
-                                {
-                                    cmd.CommandText = sql;
-                                    cmd.ExecuteNonQuery();
-                                }
-                            }
-                        }
-
-                        // Migration protokollieren
-                        string insertSql = "INSERT INTO dbo.Migrations (Name) VALUES (@Name)";
-                        cmd.CommandText = insertSql;
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@Name", migrationName);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-    }
-
     // Hilfsklasse für numerische Sortierung
     public class MigrationComparer : IComparer<string>
     {
@@ -289,34 +297,6 @@ CREATE TABLE dbo.Migrations (
         {
             string digits = new string(name.Where(char.IsDigit).ToArray());
             return string.IsNullOrEmpty(digits) ? 0 : int.Parse(digits);
-        }
-    }
-
-
-    public static class DbHelper
-    {
-        public static void EnsureDatabase(string connectionString)
-        {
-            var builder = new SqlConnectionStringBuilder(connectionString);
-            string dbName = builder.InitialCatalog;
-
-            // Verbindung zur master-DB
-            builder.InitialCatalog = "master";
-            ExecuteNonQuery(builder.ConnectionString, $@"
-IF DB_ID('{dbName}') IS NULL
-    CREATE DATABASE [{dbName}];");
-        }
-
-        public static void ExecuteNonQuery(string connectionString, string sql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-            }
         }
     }
 }

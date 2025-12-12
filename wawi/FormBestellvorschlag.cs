@@ -81,7 +81,7 @@ namespace wawi
                     .Where(a => (a.Mindestbestand + a.Reserviert - a.Bestand - a.Bestellt) > 0)
                     .Select(a => new
                     {
-                        a.Bezeichnung,
+                        a.Name,
                         a.Mindestbestand//,
                         //a.Bestellvorschlag = a.Mindestbestand + a.Reserviert - a.Bestand - a.Bestellt
                     })

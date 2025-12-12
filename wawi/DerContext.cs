@@ -25,7 +25,8 @@ namespace wawi
     public class Artikel
     {
         public int Id { get; set; }
-        public string Bezeichnung { get; set; }
+        
+        public string Name { get; set; }
         public decimal Preis { get; set; }
         public int Bestand { get; set; }
         public int Bestellt { get; set; }

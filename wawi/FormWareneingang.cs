@@ -89,7 +89,7 @@ namespace wawi
           {
               b.Id,
               b.ErfDat,
-              a.Bezeichnung,
+              a.Name,
               b.Bestellt,
               b.Geliefert,
               //Offen = b.Bestellt - b.Geliefert,
