@@ -225,18 +225,10 @@ FROM     dbo.Drucker INNER JOIN
 
             switch (cellValue)
             {
-                case "Reserviert":
-                    color = Color.Blue;
-                    break;
-                case "Bereit":
-                    color = Color.Green;
-                    break;
-                case "Ausgeliefert":
-                    color = Color.DarkRed;
-                    break;
-                default:
-                    color = Color.Black;
-                    break;
+                case "Reserviert": color = Color.Blue; break;
+                case "Bereit": color = Color.Green; break;
+                case "Ausgeliefert": color = Color.DarkRed; break;
+                default: color = Color.Black; break;
             }
             
             row.DefaultCellStyle.ForeColor = color;
