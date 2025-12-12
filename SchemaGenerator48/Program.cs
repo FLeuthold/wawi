@@ -13,22 +13,22 @@ namespace SchemaGenerator48
         static void Main(string[] args)
         {
 
-            string folderPath = @"./"; // dein Verzeichnis mit den .txt-Dateien
+            string folderPath = @"./config/"; // dein Verzeichnis mit den .txt-Dateien
 
             if (!File.Exists("conn.conf"))
             {
-                folderPath = @"../../";
+                folderPath = @"../../config/";
             }
 
 
             string connStr = File.ReadAllLines(folderPath + "conn.conf")[0];
-            SchemaGenerator.EnsureDatabase(connStr);
+            DbHelper.EnsureDatabase(connStr);
             foreach (var file in Directory.GetFiles(folderPath, "*.txt"))
             {
                 // Tabellen aus Dateien einlesen
                 var tableDef = SchemaGenerator.Parse(file);
                 string sqlTable = SchemaGenerator.GenerateCreateTable(tableDef);
-                DbHelper.ExecuteSql(connStr, sqlTable);
+                DbHelper.ExecuteNonQuery(connStr, sqlTable);
                 Console.WriteLine($"Tabelle {tableDef.Name} erstellt/überprüft.");
             }
 
@@ -77,28 +77,6 @@ namespace SchemaGenerator48
                     table.Columns.Add((parts[0], parts[1]));
             }
             return table;
-        }
-        public static void EnsureDatabase(string connectionString)
-        {
-            var builder = new SqlConnectionStringBuilder(connectionString);
-            string dbName = builder.InitialCatalog;
-
-            // Verbindung zur master-DB statt zur eigentlichen
-            builder.InitialCatalog = "master";
-
-            using (var conn = new SqlConnection(builder.ConnectionString))
-            {
-                conn.Open();
-
-                string sql = $@"
-IF DB_ID('{dbName}') IS NULL
-    CREATE DATABASE [{dbName}];";
-
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-            }
         }
 
         public static IEnumerable<string> ParseAlterFile(string tableName, string filePath)
@@ -150,19 +128,6 @@ IF DB_ID('{dbName}') IS NULL
             return sb.ToString();
         }
 
-        public static string GenerateManyToMany(string tableA, string tableB)
-        {
-            var joinTable = tableA + tableB;
-            return $@"
-IF OBJECT_ID('{joinTable}', 'U') IS NULL
-CREATE TABLE {joinTable} (
-    {tableA}Id INT NOT NULL,
-    {tableB}Id INT NOT NULL,
-    CONSTRAINT PK_{joinTable} PRIMARY KEY ({tableA}Id, {tableB}Id),
-    CONSTRAINT FK_{joinTable}_{tableA} FOREIGN KEY ({tableA}Id) REFERENCES {tableA}(Id),
-    CONSTRAINT FK_{joinTable}_{tableB} FOREIGN KEY ({tableB}Id) REFERENCES {tableB}(Id)
-);";
-        }
 
         /**/
 
@@ -224,38 +189,38 @@ IF COL_LENGTH('{tables[0]}', '{tables[1]}Id') IS NULL
         public static void Run(string connStr, string migrationsRoot)
         {
             // DB sicherstellen
-            //DbHelper.EnsureDatabase(connStr);
+            DbHelper.EnsureDatabase(connStr);
 
             using (var conn = new SqlConnection(connStr))
             {
                 conn.Open();
-
-                // Migrations-Tabelle sicherstellen
-                string ensureTable = @"
+                using (var cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    // Migrations-Tabelle sicherstellen
+                    string ensureTable = @"
 IF OBJECT_ID('dbo.Migrations', 'U') IS NULL
 CREATE TABLE dbo.Migrations (
     Id INT IDENTITY PRIMARY KEY,
     Name NVARCHAR(200) NOT NULL,
     AppliedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
 );";
-                using (var cmd = new SqlCommand(ensureTable, conn))
-                {
+                    cmd.CommandText = ensureTable;
                     cmd.ExecuteNonQuery();
-                }
 
-                // Alle Migrationsordner holen und numerisch sortieren
-                var migrationDirs = Directory.GetDirectories(migrationsRoot, "migration*")
+
+                    // Alle Migrationsordner holen und numerisch sortieren
+                    var migrationDirs = Directory.GetDirectories(migrationsRoot, "migration*")
                                              .OrderBy(d => d, new MigrationComparer())
                                              .ToList();
 
-                foreach (var dir in migrationDirs)
-                {
-                    string migrationName = Path.GetFileName(dir);
-
-                    // Prüfen ob schon angewandt
-                    string checkSql = "SELECT COUNT(*) FROM dbo.Migrations WHERE Name = @Name";
-                    using (var cmd = new SqlCommand(checkSql, conn))
+                    foreach (var dir in migrationDirs)
                     {
+                        string migrationName = Path.GetFileName(dir);
+
+                        // Prüfen ob schon angewandt
+                        cmd.CommandText = "SELECT COUNT(*) FROM dbo.Migrations WHERE Name = @Name";
+                        cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@Name", migrationName);
                         int count = (int)cmd.ExecuteScalar();
                         if (count > 0)
@@ -263,42 +228,45 @@ CREATE TABLE dbo.Migrations (
                             Console.WriteLine($"{migrationName} already applied.");
                             continue;
                         }
-                    }
 
-                    Console.WriteLine($"Applying {migrationName}...");
+                        Console.WriteLine($"Applying {migrationName}...");
 
-                    // ALTER-Dateien
-                    string alterDir = Path.Combine(dir, "alter");
-                    if (Directory.Exists(alterDir))
-                    {
-                        foreach (var file in Directory.GetFiles(alterDir, "*.txt"))
+                        // ALTER-Dateien
+                        string alterDir = Path.Combine(dir, "alter");
+
+                        if (Directory.Exists(alterDir))
                         {
-                            string tableName = Path.GetFileNameWithoutExtension(file);
-                            foreach (var sql in SchemaGenerator.ParseAlterFile(tableName, file))
+                            foreach (var file in Directory.GetFiles(alterDir, "*.txt"))
                             {
-                                DbHelper.ExecuteNonQuery(connStr, sql);
+                                string tableName = Path.GetFileNameWithoutExtension(file);
+                                foreach (var sql in SchemaGenerator.ParseAlterFile(tableName, file))
+                                {
+                                    cmd.CommandText = sql;
+                                    cmd.ExecuteNonQuery();
+                                }
                             }
                         }
-                    }
 
-                    // ADD-Dateien
-                    string addDir = Path.Combine(dir, "add");
-                    if (Directory.Exists(addDir))
-                    {
-                        foreach (var file in Directory.GetFiles(addDir, "*.txt"))
+                        // ADD-Dateien
+                        string addDir = Path.Combine(dir, "add");
+                        if (Directory.Exists(addDir))
                         {
-                            string tableName = Path.GetFileNameWithoutExtension(file);
-                            foreach (var sql in SchemaGenerator.ParseAddFile(tableName, file))
+                            cmd.Connection = conn;
+                            foreach (var file in Directory.GetFiles(addDir, "*.txt"))
                             {
-                                DbHelper.ExecuteNonQuery(connStr, sql);
+                                string tableName = Path.GetFileNameWithoutExtension(file);
+                                foreach (var sql in SchemaGenerator.ParseAddFile(tableName, file))
+                                {
+                                    cmd.CommandText = sql;
+                                    cmd.ExecuteNonQuery();
+                                }
                             }
                         }
-                    }
 
-                    // Migration protokollieren
-                    string insertSql = "INSERT INTO dbo.Migrations (Name) VALUES (@Name)";
-                    using (var cmd = new SqlCommand(insertSql, conn))
-                    {
+                        // Migration protokollieren
+                        string insertSql = "INSERT INTO dbo.Migrations (Name) VALUES (@Name)";
+                        cmd.CommandText = insertSql;
+                        cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@Name", migrationName);
                         cmd.ExecuteNonQuery();
                     }
@@ -334,33 +302,9 @@ CREATE TABLE dbo.Migrations (
 
             // Verbindung zur master-DB
             builder.InitialCatalog = "master";
-
-            using (var conn = new SqlConnection(builder.ConnectionString))
-            {
-                conn.Open();
-                string sql = $@"
+            ExecuteNonQuery(builder.ConnectionString, $@"
 IF DB_ID('{dbName}') IS NULL
-    CREATE DATABASE [{dbName}];";
-
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public static void ExecuteSql(string connectionString, string sql)
-        {
-            using (var conn = new SqlConnection(connectionString))
-            {
-
-                conn.Open();
-                using (var cmd = new SqlCommand(sql, conn))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-
-            }
+    CREATE DATABASE [{dbName}];");
         }
 
         public static void ExecuteNonQuery(string connectionString, string sql)

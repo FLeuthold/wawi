@@ -48,29 +48,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="conn.conf" />
-    <None Include="mm.rel" />
+    <None Include="config\conn.conf" />
+    <None Include="config\mm.rel" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Author.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Book.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Zimmer.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Lehrperson.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Fach.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Artikel.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Bestellungen.txt" />
+    <Content Include="config\Artikel.txt" />
+    <Content Include="config\Author.txt" />
+    <Content Include="config\Bestellungen.txt" />
+    <Content Include="config\Book.txt" />
+    <Content Include="config\Fach.txt" />
+    <Content Include="config\Lehrperson.txt" />
+    <Content Include="config\migrations\migration1\alter\Author.txt" />
+    <Content Include="config\migrations\migration2\alter\Author.txt" />
+    <Content Include="config\Zimmer.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

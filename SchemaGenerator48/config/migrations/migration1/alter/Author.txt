@@ -1,0 +1,2 @@
+blablabla
+Bio;NVARCHAR(MAX);Bio;NVARCHAR(100)
