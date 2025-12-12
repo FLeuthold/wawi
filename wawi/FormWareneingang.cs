@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
@@ -20,34 +21,62 @@ namespace wawi
 
         private void FormWareneingang_Load(object sender, EventArgs e)
         {
-            dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
-            dataGridView1.Columns["Id"].Visible = false;
+            btnRefresh.PerformClick();
+
+
+        }
+        private void btnEinbuchen_Click(object sender, EventArgs e)
+        {
+            using (var context = new DerContext())
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    // Schritt 1: Einzelupdates aus dem Grid
+                    foreach (DataGridViewRow row in dataGridView1.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        int id = (int)row.Cells["Id"].Value;
+                        int eingang = (int)row.Cells["Eingang"].Value;
+
+                        var bestellung = context.Bestellungs.Find(id);
+                        if (bestellung != null)
+                        {
+                            bestellung.Eingang = eingang;
+                        }
+                    }
+
+                    context.SaveChanges();
+
+                    // Schritt 2: Sammelupdate für alle mit Eingang > 0
+                    var betroffeneBestellungen = context.Bestellungs
+                        .Where(b => b.Eingang > 0)
+                        .ToList();
+
+                    foreach (var b in betroffeneBestellungen)
+                    {
+                        b.Geliefert += b.Eingang;
+                        b.Eingang = 0;
+                        b.MutUser = Environment.UserName;
+                        b.MutDat = DateTime.Now;
+                    }
+
+                    context.SaveChanges();
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+
+            btnRefresh.PerformClick();
         }
 
-        private void btnEinbuchen_Click(object sender, EventArgs e)
-        {            
-            /*string queryString = @"
-BEGIN TRANSACTION;
-
-update Bestellungen set Geliefert = Geliefert + Eingang, Eingang = 0, MutUser = @WindowsUser, MutDat = GetDate() WHERE Eingang >0;
-COMMIT;";*/
-
-            //" + lstbxDrucker.SelectedValue + ", " + lstbxArtikel.SelectedValue + "Environment.UserName
-            /*using (SqlConnection sqlConnection = new SqlConnection(connStr))
-            {
-                using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
-                {
-                    //sqlCommand.Parameters.Add("@SelectedDruckerId", SqlDbType.Int).Value = lstbxDrucker.SelectedValue;
-                    //sqlCommand.Parameters.Add("@SelectedArtikelId", SqlDbType.Int).Value = lstbxArtikel.SelectedValue;
-                    sqlCommand.Parameters.Add("@WindowsUser", SqlDbType.VarChar).Value = Environment.UserName;
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlConnection.Open();
-
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                }
-
-            }*/
+        /*private void btnEinbuchen_ClickBak(object sender, EventArgs e)
+        {     
 
             using (var conn = new SqlConnection(Globals.ConnStr))
             {
@@ -83,18 +112,40 @@ COMMIT;";*/
                 }
             }
 
-
+            btnRefresh.PerformClick();
 
             //this.viewTableAdapter.Fill(this.database1DataSet1.View);
             //FormAuftraege.SelectData("SELECT Bestellungen.ErfDat, Artikel.Name, Bestellungen.Bestellt, Bestellungen.Geliefert, Bestellungen.Offen, Bestellungen.Eingang FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId WHERE (((Bestellungen.Offen)>0)); ");
-            dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
+            //dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
 
 
-        }
+        }*/
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            FormWareneingang_Load(sender, e);
+            using (var context = new DerContext())
+            {
+                var result = context.Bestellungs
+    .Where(b => (b.Bestellt - b.Geliefert) > 0)
+    .Join(context.Artikels,
+          b => b.Artikel.Id,
+          a => a.Id,
+          (b, a) => new
+          {
+              b.Id,
+              b.ErfDat,
+              a.Bezeichnung,
+              b.Bestellt,
+              b.Geliefert,
+              //Offen = b.Bestellt - b.Geliefert,
+              b.Eingang
+          })
+    .ToList();
+
+                dataGridView1.DataSource = result;
+            }
+            //dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
+            //dataGridView1.Columns["Id"].Visible = false;
         }
     }
 }

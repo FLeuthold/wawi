@@ -8,6 +8,6 @@ namespace wawi
 {
     public static class Globals
     {
-        public static readonly string ConnStr = Properties.Settings.Default.connWawi;
+       // public static readonly string ConnStr = Properties.Settings.Default.connWawi;
     }
 }

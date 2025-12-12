@@ -10,7 +10,7 @@ namespace wawi
 {
     internal static class DBHelper
     {
-        public static DataTable SelectData(string selectquery)
+        public static DataTable SelectDataBak(string selectquery)
         {
             DataTable dt = new DataTable();
             using (SqlConnection conn = new SqlConnection(Globals.ConnStr))

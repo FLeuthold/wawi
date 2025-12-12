@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,16 +30,35 @@ namespace wawi
         }
         private void LadeNeu()
         {
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
             // ... hier deine Daten reinladen, z.B. mit SqlDataAdapter.Fill(dt)
-            dt = DBHelper.SelectData("SELECT * FROM ViewVerbrauch");
-            // ReportDataSource erzeugen
-            var rds = new Microsoft.Reporting.WinForms.ReportDataSource("VerbrauchDataSet", dt);
+            using (var context = new DerContext())
+            {
+                var result = context.Auftrags
+    .GroupBy(a => new 
+    { 
+        ArtikelBez = a.Artikel.Bezeichnung, 
+        DruckerBez = a.Drucker.Bezeichnung 
+    })
+    .Select(g => new
+    {
+        Artikel = g.Key.ArtikelBez,
+        Drucker = g.Key.DruckerBez,
+        Kosten = g.Sum(x => x.Artikel.Preis)
+    })
+    .ToList();
 
-            // Alte Datenquellen löschen und neue setzen
-            this.reportViewer1.LocalReport.DataSources.Clear();
-            this.reportViewer1.LocalReport.DataSources.Add(rds);
-            this.reportViewer1.RefreshReport();
+                var rds = new Microsoft.Reporting.WinForms.ReportDataSource("VerbrauchDataSet", result);
+
+                // Alte Datenquellen löschen und neue setzen
+                this.reportViewer1.LocalReport.DataSources.Clear();
+                this.reportViewer1.LocalReport.DataSources.Add(rds);
+                this.reportViewer1.RefreshReport();
+                //dt = result;
+            }
+            //dt = DBHelper.SelectData("SELECT * FROM ViewVerbrauch");
+            // ReportDataSource erzeugen
+
         }
     }
 }
