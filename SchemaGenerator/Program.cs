@@ -6,13 +6,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
+string folderPath = @"."; // dein Verzeichnis mit den .txt-Dateien
+
+if (!File.Exists("conn.conf"))
+{
+    folderPath = @"../../../";
+}
 
 
-
-string connStr = "Data Source=.;Initial Catalog=wawientity027799;Integrated Security=True;TrustServerCertificate=True";
-
-string folderPath = @"../../../"; // dein Verzeichnis mit den .txt-Dateien
-
+string connStr = File.ReadAllLines(folderPath+"conn.conf")[0];
+SchemaGenerator.EnsureDatabase(connStr);
 foreach (var file in Directory.GetFiles(folderPath, "*.txt"))
 {
     // Tabellen aus Dateien einlesen
@@ -51,7 +54,7 @@ using (var conn = new SqlConnection(connStr))
 }
 
 Console.WriteLine("Schema erfolgreich erstellt!");
-
+Console.ReadLine();
 
 
 public class TableDef
@@ -74,7 +77,28 @@ public static class SchemaGenerator
         }
         return table;
     }
+    public static void EnsureDatabase(string connectionString)
+    {
+        var builder = new SqlConnectionStringBuilder(connectionString);
+        string dbName = builder.InitialCatalog;
 
+        // Verbindung zur master-DB statt zur eigentlichen
+        builder.InitialCatalog = "master";
+
+        using (var conn = new SqlConnection(builder.ConnectionString))
+        {
+            conn.Open();
+
+            string sql = $@"
+IF DB_ID('{dbName}') IS NULL
+    CREATE DATABASE [{dbName}];";
+
+            using (var cmd = new SqlCommand(sql, conn))
+            {
+                cmd.ExecuteNonQuery();
+            }
+        }
+    }
     public static string GenerateCreateTable(TableDef table)
     {
         var sb = new StringBuilder();

@@ -9,5 +9,9 @@
     <BuildType Solution="AutoCAD|*" Project="Release" />
     <BuildType Solution="GstarCAD|*" Project="Release" />
   </Project>
+  <Project Path="SchemaGenerator48/SchemaGenerator48.csproj" Id="77bc34c1-3e94-419a-96d0-ba9c266cfae8">
+    <BuildType Solution="AutoCAD|*" Project="Release" />
+    <BuildType Solution="GstarCAD|*" Project="Release" />
+  </Project>
   <Project Path="wawi/wawi.csproj" Id="55f18cbb-f436-4595-89c7-4b74d4154c6b" />
 </Solution>
