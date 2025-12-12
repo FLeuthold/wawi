@@ -75,51 +75,6 @@ namespace wawi
             btnRefresh.PerformClick();
         }
 
-        /*private void btnEinbuchen_ClickBak(object sender, EventArgs e)
-        {     
-
-            using (var conn = new SqlConnection(Globals.ConnStr))
-            {
-                conn.Open();
-
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    if (row.IsNewRow) continue;
-
-                    int id = (int)row.Cells["Id"].Value;
-                    int eingang = (int)row.Cells["Eingang"].Value;
-
-                    using (var cmd = new SqlCommand(
-                        "UPDATE Bestellungen SET Eingang = @Eingang WHERE Id = @Id", conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Eingang", eingang);
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-
-                // Danach dein Sammelupdate:
-                using (var cmd = new SqlCommand(
-                    @"UPDATE Bestellungen
-          SET Geliefert = Geliefert + Eingang,
-              Eingang   = 0,
-              MutUser   = @WindowsUser,
-              MutDat    = GETDATE()
-          WHERE Eingang > 0", conn))
-                {
-                    cmd.Parameters.AddWithValue("@WindowsUser", Environment.UserName);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
-            btnRefresh.PerformClick();
-
-            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            //FormAuftraege.SelectData("SELECT Bestellungen.ErfDat, Artikel.Name, Bestellungen.Bestellt, Bestellungen.Geliefert, Bestellungen.Offen, Bestellungen.Eingang FROM Artikel INNER JOIN Bestellungen ON Artikel.Id = Bestellungen.ArtikelId WHERE (((Bestellungen.Offen)>0)); ");
-            //dataGridView1.DataSource = DBHelper.SelectData("SELECT b.Id, b.ErfDat, a.Name, b.Bestellt, b.Geliefert, b.Offen, b.Eingang FROM Artikel a INNER JOIN Bestellungen b ON a.Id = b.ArtikelId WHERE (((b.offen)>0)); ");
-
-
-        }*/
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {

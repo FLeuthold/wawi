@@ -72,31 +72,6 @@ namespace wawi
             btnRefresh.PerformClick();
         }
 
-   /*     private void btnBestellvorschlag_ClickBak(object sender, EventArgs e)
-        {
-            string queryString = @"
-BEGIN TRANSACTION;
-insert into Bestellungen (ArtikelId, Bestellt, ErfUser, ErfDat, geliefert, Eingang) SELECT Id, Bestellvorschlag, @Username, GETDATE(), 0, 0  FROM Artikel where Bestellvorschlag > 0;
-
-update Artikel set Bestellt = Bestellt + Bestellvorschlag;
-COMMIT;
-";
-            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr))
-            {
-                using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
-                {
-                    sqlCommand.Parameters.Add("@Username", SqlDbType.Text).Value = Environment.UserName;
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlConnection.Open();
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                }
-
-            }
-            btnRefresh.PerformClick();
-            //this.viewBestellvorschlagTableAdapter.Fill(this.database1DataSetBestellvorschlag.ViewBestellvorschlag);
-            //dataGridView1.DataSource = DBHelper.SelectData("select * from [ViewBestellvorschlag]");
-        }*/
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {

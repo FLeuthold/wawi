@@ -159,41 +159,6 @@ FROM     dbo.Drucker INNER JOIN
             ErneuernAnzeige();
         }
 
-        /*private void btnErfassen_ClickBak(object sender, EventArgs e)
-        {
-            string queryString = @"
-BEGIN TRANSACTION;
-
-
-insert into Auftrag (DruckerId, ArtikelId, Status , ErfUser, ErfDat) 
-values (@SelectedDruckerId,@SelectedArtikelId, 'Reserviert', @WindowsUser , CONVERT (date, SYSDATETIME()));
-
-update Artikel set Reserviert = Reserviert + 1 where Id = @SelectedArtikelId; 
-
-COMMIT;";
-
-            //" + lstbxDrucker.SelectedValue + ", " + lstbxArtikel.SelectedValue + "Environment.UserName
-            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr)) { 
-                using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
-                {
-                    sqlCommand.Parameters.Add("@SelectedDruckerId", SqlDbType.Int).Value = lstbxDrucker.SelectedValue;
-                    sqlCommand.Parameters.Add("@SelectedArtikelId", SqlDbType.Int).Value = lstbxArtikel.SelectedValue;
-                    sqlCommand.Parameters.Add("@WindowsUser", SqlDbType.VarChar).Value = Environment.UserName;
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlConnection.Open();
-                    
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                }
-
-            }
-
-
-            ErneuernAnzeige();
-            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            //dgvAuftraege.DataSource = DBHelper.SelectData("select * from [View] order by Id desc");
-
-        }*/
         private void btnStatus_Click(object sender, EventArgs e)
         {
             int firstDisplayedRowIndex = dgvAuftraege.FirstDisplayedScrollingRowIndex;
@@ -251,60 +216,6 @@ COMMIT;";
             dgvAuftraege.FirstDisplayedScrollingRowIndex = firstDisplayedRowIndex;
         }
 
-        /*private void btnStatus_ClickBak(object sender, EventArgs e)
-        {
-            //int scrollOffset = dgvAuftraege.HorizontalScrollingOffset;
-            int firstDisplayedRowIndex = dgvAuftraege.FirstDisplayedScrollingRowIndex;
-            int currentRowIndex = dgvAuftraege.CurrentCell.RowIndex;
-            int SelectedAuftragsId = Int32.Parse(dgvAuftraege.SelectedRows[0].Cells["Id"].Value.ToString());
-            string SelectedStatus = dgvAuftraege.SelectedRows[0].Cells["colStatus"].Value.ToString();
-            string NewStatus = "";
-            //StatusAuftrag status;
-            //status = status + 1;
-            switch (SelectedStatus)
-            {
-                case "Reserviert": NewStatus = "Bereit";
-                    break;
-                case "Bereit": NewStatus = "Ausgeliefert";
-                    break;
-                case "Ausgeliefert": NewStatus = "Ausgewechselt";
-                    break;
-                default: NewStatus = "Ausgewechselt";
-                    break;
-            }
-                 
-            
-
-            string queryString = @"
-update Auftrag set Status=@NewStatus where Id = @AuftragsId;
-
-IF @NewStatus = 'Bereit'
-Update Artikel set Bestand = Bestand - 1, Reserviert = Reserviert - 1 where Id =
-(select ArtikelId from Auftrag where Id = @AuftragsId)
-";
-
-            //" + lstbxDrucker.SelectedValue + ", " + lstbxArtikel.SelectedValue + "Environment.UserName
-            using (SqlConnection sqlConnection = new SqlConnection(Globals.ConnStr))
-            {
-                using (SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection))
-                {
-                    sqlCommand.Parameters.Add("@AuftragsId", SqlDbType.Int).Value = SelectedAuftragsId;
-                    sqlCommand.Parameters.Add("@NewStatus", SqlDbType.VarChar).Value = NewStatus;
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlConnection.Open();
-                    sqlCommand.ExecuteNonQuery();
-                    sqlConnection.Close();
-                }
-
-            }
-
-            //this.viewTableAdapter.Fill(this.database1DataSet1.View);
-            ErneuernAnzeige();
-            //dgvAuftraege.DataSource = DBHelper.SelectData("select * from [View] order by Id desc");
-            dgvAuftraege.CurrentCell = dgvAuftraege.Rows[currentRowIndex].Cells[0];
-            //dgvAuftraege.HorizontalScrollingOffset = scrollOffset;
-            dgvAuftraege.FirstDisplayedScrollingRowIndex = firstDisplayedRowIndex;
-        }*/
 
         private void dgvAuftraege_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
