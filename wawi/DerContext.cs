@@ -32,15 +32,15 @@ namespace wawi
         public int Bestellt { get; set; }
         public int Reserviert { get; set; }
         public int Mindestbestand { get; set; }
-        [NotMapped] // EF soll keine Spalte dafür anlegen
-        public int Bestellvorschlag => Mindestbestand + Reserviert - Bestand - Bestellt;
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int Bestellvorschlag { get; set; }
         /*[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int Bestellvorschlag
         {
             get { return Mindestbestand + Reserviert - Bestand - Bestellt; }
             private set { }
         }*/
-        
+
     }
     public class Auftrag
     {
@@ -57,7 +57,7 @@ namespace wawi
     public class Drucker
     {
         public int Id { get; set; }
-        public string Bezeichnung { get; set; }
+        public string NameD { get; set; }
     }
     public class Bestellung
     {

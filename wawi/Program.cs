@@ -17,12 +17,12 @@ namespace wawi
         [STAThread]
         static void Main()
         {
-            Database.SetInitializer(new CreateDatabaseIfNotExists<DerContext>());
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<DerContext>());
             using (var context = new DerContext())
             {
                 var configuration = new wawi.Migrations.Configuration(); // deine Migrations-Konfigurationsklasse
                 var migrator = new DbMigrator(configuration);
-                migrator.Update(); // führt alle ausstehenden Migrationen aus
+                //migrator.Update(); // führt alle ausstehenden Migrationen aus
             }
 
             Application.EnableVisualStyles();

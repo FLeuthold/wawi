@@ -84,7 +84,7 @@ FROM     dbo.Drucker INNER JOIN
             using (var context = new DerContext())
             {
                 var result = context.Druckers
-                    .Where(d => d.Bezeichnung.Contains(txtDrucker.Text))
+                    .Where(d => d.NameD.Contains(txtDrucker.Text))
                     .ToList();
 
                 lstbxDrucker.DataSource = result;
@@ -103,8 +103,8 @@ FROM     dbo.Drucker INNER JOIN
                     {
                         a.Id,
                         a.ErfDat,
-                        ArtikelName = a.Artikel.Name,
-                        DruckerBez = a.Drucker.Bezeichnung,
+                        a.Artikel.Name,
+                        a.Drucker.NameD,
                         a.Status,
                         a.ErfUser
                     })

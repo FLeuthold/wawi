@@ -130,6 +130,22 @@
     <Compile Include="Migrations\202512122149391_migration02.Designer.cs">
       <DependentUpon>202512122149391_migration02.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202512122219330_migration03.cs" />
+    <Compile Include="Migrations\202512122219330_migration03.Designer.cs">
+      <DependentUpon>202512122219330_migration03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202512122241252_migration04.cs" />
+    <Compile Include="Migrations\202512122241252_migration04.Designer.cs">
+      <DependentUpon>202512122241252_migration04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202512122335570_migration05.cs" />
+    <Compile Include="Migrations\202512122335570_migration05.Designer.cs">
+      <DependentUpon>202512122335570_migration05.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202512122357037_migration06.cs" />
+    <Compile Include="Migrations\202512122357037_migration06.Designer.cs">
+      <DependentUpon>202512122357037_migration06.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="NumericColumn.cs" />
     <Compile Include="NumericTextBox.cs">
@@ -166,6 +182,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202512122149391_migration02.resx">
       <DependentUpon>202512122149391_migration02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202512122219330_migration03.resx">
+      <DependentUpon>202512122219330_migration03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202512122241252_migration04.resx">
+      <DependentUpon>202512122241252_migration04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202512122335570_migration05.resx">
+      <DependentUpon>202512122335570_migration05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202512122357037_migration06.resx">
+      <DependentUpon>202512122357037_migration06.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -38,7 +38,7 @@ namespace wawi
     .GroupBy(a => new 
     { 
         ArtikelBez = a.Artikel.Name, 
-        DruckerBez = a.Drucker.Bezeichnung 
+        DruckerBez = a.Drucker.NameD 
     })
     .Select(g => new
     {

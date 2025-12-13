@@ -77,16 +77,36 @@ namespace wawi
         {
             using (var context = new DerContext())
             {
-                var result = context.Artikels
+                /*var result = context.Artikels
                     .Where(a => (a.Mindestbestand + a.Reserviert - a.Bestand - a.Bestellt) > 0)
                     .Select(a => new
                     {
                         a.Name,
-                        a.Mindestbestand//,
-                        //a.Bestellvorschlag = a.Mindestbestand + a.Reserviert - a.Bestand - a.Bestellt
+                        a.Mindestbestand,//,
+                        a.Bestellvorschlag
                     })
-                    .ToList();
-
+                    .ToList();*/
+                /*var result = context.Artikels
+    .Where(a => (a.Mindestbestand + a.Reserviert - a.Bestand - a.Bestellt) > 0)
+    .ToList()
+    .Select(a => new
+    {
+        a.Name,
+        a.Mindestbestand,
+        a.Bestellvorschlag
+    }).ToList();*/
+                var result = context.Artikels
+    .Where(a => a.Bestellvorschlag > 0)
+    .Select(a => new
+    {
+        a.Name,
+        a.Mindestbestand,
+        a.Bestellvorschlag
+    }).ToList();
+                /*var result = context.Artikels
+    .Where(a => (a.Bestellvorschlag) > 0)
+    .ToList();*/
+                //var resultList = result
                 dataGridView1.DataSource = result;
             }
             //dataGridView1.DataSource = DBHelper.SelectData("SELECT Name, Mindestbestand, Bestellvorschlag FROM     dbo.Artikel WHERE(Bestellvorschlag > 0)");
